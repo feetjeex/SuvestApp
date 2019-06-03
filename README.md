@@ -50,6 +50,7 @@ A workaround for this problem is to take a screenshot of the product the user is
 
 #### Similar mobile apps:
 
+- Perhaps Pinterest is slightly similar, in the sense that users can also collect product by many different retailers, though Pinterest does not employ any OCR to determine characteristics of the image.
 
 #### Hardest parts:
 
