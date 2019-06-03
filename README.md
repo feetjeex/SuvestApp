@@ -35,7 +35,7 @@ A workaround for this problem is to take a screenshot of the product the user is
 
 - Allow users to add multiple screenshots at once, from within the App **(MVP)**
 
-<img src="https://github.com/feetjeex/SuvestApp/blob/master/doc/Pic2.png" width="600" height="200" />
+<img src="https://github.com/feetjeex/SuvestApp/blob/master/doc/Pic2.png" width="700" height="300" />
 
 
 ### Prerequisites
