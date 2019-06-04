@@ -21,15 +21,17 @@ A workaround for this problem is to take a screenshot of the product the user is
  
 ### Main Features 
 
-- Allow users to scroll through all of the screenshots of a particular type of product **(MVP)**
+<img src="https://github.com/feetjeex/SuvestApp/blob/master/doc/DesignDocument.png" width="750" height="600" />
 
-<img src="https://github.com/feetjeex/SuvestApp/blob/master/doc/Pic1.png" width="600" height="200" />
+- Allow users to scroll through all of the screenshots of a particular type of product **(MVP)**
 
 - Allow users to add a screenshot to the library in the application after selecting that screenshot in their gallery **(MVP)**
 
 - Allow users to make adjustments to which screenshots are shown of a particular type of product (such as a maximum price, for example)
 
 - Allow users to delete screenshots from the library in the application **(MVP)**
+
+<img src="https://github.com/feetjeex/SuvestApp/blob/master/doc/Pic1.png" width="600" height="200" />
 
 - Notify the user if a product in their library is discounted by the retailer
 
