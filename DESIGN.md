@@ -20,6 +20,8 @@
 | Getters()                |
 | Setters()                |
 
+
+
 | ProductArraylist         |
 |--------------------------|
 | Products: ArrayList<>    |
