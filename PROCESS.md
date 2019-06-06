@@ -10,3 +10,7 @@ oplossing zou kunnen zijn, bij een druk op de screenshot naar de site van de ret
 de URL te plakken. 3. De app moet bij het toevoegen van screenshots naar de foto rol gaan, deze niet zelf eerst importeren en weergeven.
 
 Het derde punt is inmiddels gerealiseerd. Vandaag ook bijna alle activities geimplementeerd en de navigatie werkt al redelijk. 
+
+# Day 4 (Donderdag)
+
+Vandaag moet ik nadenken over in welke vorm ik de screenshots ga gebruiken. Ga ik kopiëeen maken of laat ik ze rechtstreeks vanuit de foto's app?
