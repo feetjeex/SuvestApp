@@ -23,7 +23,7 @@
         app:srcCompat="@drawable/sweatertest" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/infoImageRemove"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
@@ -38,7 +38,7 @@
         app:layout_constraintVertical_bias="0.088" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/infoImageNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -50,24 +50,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toEndOf="@+id/infoImageView"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/infoImageRemove"
         app:layout_constraintVertical_bias="0.126" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/TvCategory"
         android:layout_width="60dp"
         android:layout_height="28dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Retailer: "
+        android:text="Category:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/infoImageView"
         app:layout_constraintVertical_bias="0.22" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/TvType"
         android:layout_width="60dp"
         android:layout_height="28dp"
         android:layout_marginStart="20dp"
@@ -76,11 +76,11 @@
         android:text="Type:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/TvCategory"
         app:layout_constraintVertical_bias="0.103" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/TvPrice"
         android:layout_width="60dp"
         android:layout_height="28dp"
         android:layout_marginStart="20dp"
@@ -89,11 +89,11 @@
         android:text="Price:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/TvType"
         app:layout_constraintVertical_bias="0.117" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/TvURL"
         android:layout_width="60dp"
         android:layout_height="28dp"
         android:layout_marginStart="20dp"
@@ -102,11 +102,24 @@
         android:text="URL:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:layout_constraintTop_toBottomOf="@+id/TvPrice"
         app:layout_constraintVertical_bias="0.129" />
 
+    <TextView
+        android:id="@+id/TvRetailer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Retailer:"
+        app:layout_constraintBottom_toTopOf="@+id/TvCategory"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/infoImageView"
+        app:layout_constraintVertical_bias="0.685" />
+
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/CategorySpinner"
         android:layout_width="191dp"
         android:layout_height="28dp"
         android:layout_marginStart="8dp"
@@ -116,12 +129,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.03"
-        app:layout_constraintStart_toEndOf="@+id/textView9"
+        app:layout_constraintStart_toEndOf="@+id/TvCategory"
         app:layout_constraintTop_toBottomOf="@+id/infoImageView"
         app:layout_constraintVertical_bias="0.22" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/TypeSpinner"
         android:layout_width="191dp"
         android:layout_height="28dp"
         android:layout_marginStart="8dp"
@@ -131,40 +144,56 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.032"
-        app:layout_constraintStart_toEndOf="@+id/textView10"
-        app:layout_constraintTop_toBottomOf="@+id/spinner"
+        app:layout_constraintStart_toEndOf="@+id/TvType"
+        app:layout_constraintTop_toBottomOf="@+id/CategorySpinner"
         app:layout_constraintVertical_bias="0.103" />
 
-    <TextView
-        android:id="@+id/textView13"
+    <EditText
+        android:id="@+id/InputPrice"
         android:layout_width="191dp"
         android:layout_height="28dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="number"
+        android:hint="$70"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.032"
-        app:layout_constraintStart_toEndOf="@+id/textView11"
-        app:layout_constraintTop_toBottomOf="@+id/spinner2"
+        app:layout_constraintStart_toEndOf="@+id/TvPrice"
+        app:layout_constraintTop_toBottomOf="@+id/TypeSpinner"
         app:layout_constraintVertical_bias="0.117" />
 
-    <TextView
-        android:id="@+id/textView14"
+    <EditText
+        android:id="@+id/InputURL"
         android:layout_width="191dp"
         android:layout_height="28dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="TextView"
+        android:hint="URL"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.032"
-        app:layout_constraintStart_toEndOf="@+id/textView12"
-        app:layout_constraintTop_toBottomOf="@+id/textView13"
+        app:layout_constraintStart_toEndOf="@+id/TvURL"
+        app:layout_constraintTop_toBottomOf="@+id/InputPrice"
         app:layout_constraintVertical_bias="0.129" />
+
+    <EditText
+        android:id="@+id/InputRetailer"
+        android:layout_width="191dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:hint="Asos"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/CategorySpinner"
+        app:layout_constraintStart_toEndOf="@+id/TvRetailer"
+        app:layout_constraintTop_toBottomOf="@+id/infoImageView"
+        app:layout_constraintVertical_bias="0.923" />
 
 </android.support.constraint.ConstraintLayout>

@@ -41,10 +41,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // On button press, allows the user to select one or more pictures from the gallery of their choice
-                Intent intent = new Intent();
-                intent.setType("image/*");
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                //intent.setType("image/*");
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("image/*");
                 //startActivityForResult(Intent.createChooser(intent,"Select Picture"), 1);
                 startActivityForResult(intent, 1);
             }
@@ -79,26 +80,27 @@ public class MainActivity extends AppCompatActivity {
 
         // Check which request we're responding to
         if (requestCode == 1 && resultCode == RESULT_OK) {
+            String uri = data.getData().toString();
 
-            // Passes the image selected by the user to the AddInformationActivity
-            ArrayList<String> uris = new ArrayList<>();
-            ClipData cd = data.getClipData();
-            if ( cd == null ) {
-                Uri uri = data.getData();
-                uris.add(uri.toString());
-            }
-
-            else {
-                for (int i = 0; i < cd.getItemCount(); i++) {
-                    ClipData.Item item = cd.getItemAt(i);
-                    Uri uri = item.getUri();
-                    uris.add(uri.toString());
-                }
-            }
+//            // Passes the image selected by the user to the AddInformationActivity
+//            ArrayList<String> uris = new ArrayList<>();
+//            ClipData cd = data.getClipData();
+//            if ( cd == null ) {
+//                Uri uri = data.getData();
+//                uris.add(uri.toString());
+//            }
+//
+//            else {
+//                for (int i = 0; i < cd.getItemCount(); i++) {
+//                    ClipData.Item item = cd.getItemAt(i);
+//                    Uri uri = item.getUri();
+//                    uris.add(uri.toString());
+//                }
+//            }
 
             // Log.d(TAG, String.format("This is the size of Uri's: %s", uris.size()));
             Intent secondintent = new Intent(MainActivity.this, AddInformationActivity.class);
-            secondintent.putExtra("imageUri", uris);
+            secondintent.putExtra("imageUri", uri);
             startActivity(secondintent);
         }
     }

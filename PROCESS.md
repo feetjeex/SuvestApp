@@ -14,3 +14,10 @@ Het derde punt is inmiddels gerealiseerd. Vandaag ook bijna alle activities geim
 # Day 4 (Donderdag)
 
 Vandaag moet ik nadenken over in welke vorm ik de screenshots ga gebruiken. Ga ik kopiëeen maken of laat ik ze rechtstreeks vanuit de foto's app?
+Ik neig meer naar het gebruiken van de URI's en de juiste foto's vervolgens te laden.
+
+# Day 5 (Vrijdag)
+
+Veel progress gemaakt vandaag. Prototype werkt. Er is wel een nieuw probleem ontstaan: De intent die ik tot nu toe gebruikte geeft geen long term
+permission om de foto's te gebruiken. Ik heb de intent aangepast, alleen laat deze gebruikers nu slechts 1 foto per keer selecteren.
+De multi select is wel een belangrijk onderdeel van de App.
