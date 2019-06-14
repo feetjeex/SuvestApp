@@ -22,11 +22,11 @@ public class TypeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String choice = (String) intent.getSerializableExtra("choice");
 
-        // Declaration and initialization of a db object
+        // Declaration and initialization of a db object, fetching the table dependent on the choice of the user
         db = DatabaseHelper.getInstance(this);
         cursor = db.selectAll(choice);
 
-        // Declaration, initialization and assignment of a new EntryAdapter object
+        // Declaration, initialization and assignment of a new ProductAdapter object
         GridView gridview = findViewById(R.id.gridview);
         adapter = new ProductAdapter(this, cursor);
         gridview.setAdapter(adapter);

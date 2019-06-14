@@ -21,3 +21,26 @@ Ik neig meer naar het gebruiken van de URI's en de juiste foto's vervolgens te l
 Veel progress gemaakt vandaag. Prototype werkt. Er is wel een nieuw probleem ontstaan: De intent die ik tot nu toe gebruikte geeft geen long term
 permission om de foto's te gebruiken. Ik heb de intent aangepast, alleen laat deze gebruikers nu slechts 1 foto per keer selecteren.
 De multi select is wel een belangrijk onderdeel van de App.
+
+# Day 6 (Dinsdag)
+
+Vandaag progress gemaakt met Google Vision. De OCR werkt goed. Ik heb besloten om te blijven werken met Uri's. Dit omdat deze makkelijekr op te slaan
+zijn als (semi) String in een SQLite database. Helaas nog geen progressie gemaakt met de Multi-Select bij foto's uitkiezen.
+
+Over de Stand Up: Darian wil gebruik maken van een 'preview' bij het klikken op een node op zijn kaart (Google Maps API). Ik vertelde hem dat deze functionaliteit standaard
+al in de API zit. Bart is z'n code aan het omschrijven om ook de Google Maps API te gebruiken. Hij had verder geen vragen / open issues. Ikzelf: Ik
+twijfelde over hoe ik keywords wilde gebruiken in m'n code. Ik wil dat de OCR een text teruggeeft, die vervolgens wordt vergeleken met een aantal
+Keywords (Zoals nike of zalando). Bart en Darian waren van mening dat het gebruiken van een CSV met deze keywords de beste manier was.
+
+# Day 7 (Woensdag)
+
+Eerste implementatie van de OCR is gelukt. Een aantal screenshots toegevoegd en hier de OCR op los gelaten. De OCR herkent een aantal teksten op
+de screenshot. Helaas lijkt de OCR een deel niet te lezen, mogelijk omdat het font in het lichtgrijs is. Ook een aantal enums aangemaakt die de
+Keywords bevatten waarmee de strings uit de OCR vergeleken worden. Ook nog een categorie aan de product klasse toegevoegd: de kleur.
+
+Stand Up: Darian is erin geslaagd z'n liftplekken als CSV in z'n app te laden. Hij gaat nu verder met het aanmaken van accounts en die opslaan
+in een database. Ik vroeg me af of er geen API was om makkelijk CSV's te laden.
+
+# Day 8 (Donderdag)
+
+# Day 9 (Vrijdag)

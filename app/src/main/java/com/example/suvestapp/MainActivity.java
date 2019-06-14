@@ -1,11 +1,14 @@
 package com.example.suvestapp;
 
 import android.content.ClipData;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
         // Initializing and assigning the FloatingActionButton
         FloatingActionButton MainActivityFab = findViewById(R.id.fab);
 
+        // Setting the toolbar
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
         // Setting the OnclickListener for the FloatingActionButton MainActivityFab
         MainActivityFab.setOnClickListener(new View.OnClickListener() {
 
@@ -41,12 +48,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // On button press, allows the user to select one or more pictures from the gallery of their choice
-                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                //intent.setType("image/*");
-                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType("image/*");
-                //startActivityForResult(Intent.createChooser(intent,"Select Picture"), 1);
+                Intent intent;
+
+                if (Build.VERSION.SDK_INT >= 19){
+                    intent = new Intent();
+                    intent.setType("image/*");
+                    intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                    intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+                }
+                else {
+                    intent = new Intent(Intent.ACTION_GET_CONTENT);
+                }
+
                 startActivityForResult(intent, 1);
             }
         });
@@ -80,27 +95,37 @@ public class MainActivity extends AppCompatActivity {
 
         // Check which request we're responding to
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            String uri = data.getData().toString();
 
-//            // Passes the image selected by the user to the AddInformationActivity
-//            ArrayList<String> uris = new ArrayList<>();
-//            ClipData cd = data.getClipData();
-//            if ( cd == null ) {
-//                Uri uri = data.getData();
-//                uris.add(uri.toString());
-//            }
-//
-//            else {
-//                for (int i = 0; i < cd.getItemCount(); i++) {
-//                    ClipData.Item item = cd.getItemAt(i);
-//                    Uri uri = item.getUri();
-//                    uris.add(uri.toString());
-//                }
-//            }
+            // Passes the image selected by the user to the AddInformationActivity
+            ArrayList<Uri> uris = new ArrayList<>();
+            ClipData cd = data.getClipData();
+            if ( cd == null ) {
+                Uri uri = null;
+                uri = data.getData();
+                uris.add(uri);
+            }
+
+            else {
+                for (int i = 0; i < cd.getItemCount(); i++) {
+                    ClipData.Item item = cd.getItemAt(i);
+                    Uri uri = item.getUri();
+                    uris.add(uri);
+                }
+            }
+
+            if(Build.VERSION.SDK_INT >= 19) {
+
+                final int takeFlags = data.getFlags() & Intent.FLAG_GRANT_READ_URI_PERMISSION;
+                ContentResolver resolver = this.getContentResolver();
+
+                for (Uri uri : uris) {
+                    resolver.takePersistableUriPermission(uri, takeFlags);
+                }
+            }
 
             // Log.d(TAG, String.format("This is the size of Uri's: %s", uris.size()));
             Intent secondintent = new Intent(MainActivity.this, AddInformationActivity.class);
-            secondintent.putExtra("imageUri", uri);
+            secondintent.putExtra("imageUri", uris);
             startActivity(secondintent);
         }
     }

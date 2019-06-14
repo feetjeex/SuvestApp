@@ -5,8 +5,19 @@ import java.io.Serializable;
 public class Product implements Serializable {
 
     private int id;
-    private String category, type, retailer, timestamp, imageUri, URL;
+    private String category, type, retailer, timestamp, imageUri, URL, color;
     private float price;
+
+    public Product() {
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 
     public String getURL() {
         return URL;

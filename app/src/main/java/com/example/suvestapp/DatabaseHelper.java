@@ -13,7 +13,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Constructor of the class
     private DatabaseHelper(Context context) {
-        super(context, "products", null, 3);
+        super(context, "products", null, 4);
     }
 
     // Checks if an instance already exists, if not: Creates one
@@ -32,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public long insert(Product product) {
 
         // Establishes a connection with the database
-        // Assigns values to all the fields of the table in the database using data from the JournalEntry object
+        // Assigns values to all the fields of the table in the database using data from the Product object
         getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("Category", product.getCategory());
@@ -41,6 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("Price", product.getPrice());
         contentValues.put("ImageUri", product.getImageUri());
         contentValues.put("URL", product.getURL());
+        contentValues.put("Color", product.getColor());
 
         // Returns the database upon success
         return getWritableDatabase().insert("products", null, contentValues);
@@ -52,24 +53,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db = getWritableDatabase();
         cursor = db.rawQuery("SELECT * FROM products WHERE Type = '"+type+"' ", null);
 
-        // Returns the cursor containing all the rows from the database
+        // Returns the cursor containing the rows from the database that the user selected
         return cursor;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Creates the table entries
-        db.execSQL("create table products (_id INTEGER PRIMARY KEY AUTOINCREMENT, Category TEXT, Type TEXT, Retailer TEXT, Price REAL, ImageUri TEXT, URL TEXT, Timestamp TEXT);");
+
+        // Creates the table products
+        db.execSQL("create table products (_id INTEGER PRIMARY KEY AUTOINCREMENT, Category TEXT, Type TEXT, Retailer TEXT, Price REAL, ImageUri TEXT, URL TEXT, Color TEXT, Timestamp TEXT);");
     }
 
-    // Method used to delete the old table entries and create a new one
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+        // Method used to delete the old table entries and create a new one
         db.execSQL("DROP TABLE IF EXISTS " + "products");
         onCreate(db);
     }
 
-    // Method used to delete a certain row in the table entries
+    // Method used to delete a certain row in the table products
     public Integer deleter(long _id) {
         SQLiteDatabase db = this.getWritableDatabase();
         String id =String.valueOf(_id);
