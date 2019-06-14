@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,6 +39,8 @@ public class AddInformationActivity extends AppCompatActivity {
     Spinner CategorySpinner;
     Spinner TypeSpinner;
     String imageUri;
+    private boolean mCategoryspinnerInitialized;
+    ArrayList<String> types = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,31 +65,51 @@ public class AddInformationActivity extends AppCompatActivity {
             Toast.makeText(this, "Conversion from Uri to Bitmap failed.", Toast.LENGTH_SHORT).show();
         }
 
+        // Calls the OCRFunctionality to be performed on the screenshot
         OCRHelper ocrHelper = new OCRHelper(bitmap, this);
         product = ocrHelper.ProductReturner();
-
-        //OCRHelper ocrHelper = OCRHelper(textBlock);
-        //textBlock = textBlocks.get(textBlocks.keyAt(0));
 
         // Sets the image in the layout to the Image passed by the intent
         ImageView infoImageView = findViewById(R.id.infoImageView);
         infoImageView.setImageURI(mImageUri);
 
-        // Declare and initialize the new Adapter
-        String[] CategoryObjects = {"Clothing", "Shoes", "Accesoires", "Placeholder 1", "Placeholder 2"};
+        // Declare and initialize a new ArrayList CategoryObjects, and fill it with values from the Category Enum
+        ArrayList<String> CategoryObjects = new ArrayList<>();
+        for (Category category: Category.values()) {
+            CategoryObjects.add(category.getCategory());
+        }
+
+        // Initializing and filling the ArrayAdapter CategoryAdapter with values from the ArrayList CategoryObjects
         ArrayAdapter<String> CategoryAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, CategoryObjects);
         CategorySpinner = (Spinner) findViewById(R.id.CategorySpinner);
         CategorySpinner.setAdapter(CategoryAdapter);
 
-        // Getting the Category the user choose from the spinner CategorySpinner
-        String CategoryChosen = CategorySpinner.getSelectedItem().toString();
-
-        // Decides with which elements to populate the TypeObjects Arraylist.
+        // Initializes the ArrayList for TypeObjects
         ArrayList<String> TypeObjects = new ArrayList<>();
-        TypeObjects = typeLoader(CategoryChosen, TypeObjects);
-        ArrayAdapter<String> TypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, TypeObjects);
         TypeSpinner = (Spinner) findViewById(R.id.TypeSpinner);
-        TypeSpinner.setAdapter(TypeAdapter);
+
+        // If the product category has already been determined by the OCRHelper
+        if (product.getCategory() != null) {
+            CategorySpinner.setSelection(CategoryAdapter.getPosition(product.getCategory()));
+        }
+
+        // Getting the Category the user choose from the spinner CategorySpinner
+        CategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (!mCategoryspinnerInitialized) {
+                    mCategoryspinnerInitialized = true;
+                    return;
+                }
+
+                // Decides with which elements to populate the TypeObjects Arraylist.
+                String type = CategorySpinner.getSelectedItem().toString();
+                typeLoader(type);
+            }
+
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                return;
+            }
+        });
 
         // Setting the Buttons Remove and Next
         Button infoImageNext = (Button) findViewById(R.id.infoImageNext);
@@ -122,31 +146,52 @@ public class AddInformationActivity extends AppCompatActivity {
         }
     }
 
-    public ArrayList<String> typeLoader(String choice, ArrayList<String> types) {
+    public void typeLoader(String choice) {
 
         // Fills the ArrayList types with elements, depending on the choice of the user in MainActivity
+        ArrayList<String> TypeObjects = new ArrayList<>();
+        Log.d(TAG, "TYPELOADER: choice is:" + choice);
         switch(choice) {
             case "Clothing":
-                types.addAll(Arrays.asList("Sweaters", "Shirts", "Jeans", "Socks", "Hoodies", "Trousers", "Jackets", "Training"));
+                for (TypeClothing typeClothing : TypeClothing.values()) {
+                    TypeObjects.add(typeClothing.getTypeclothing());
+                }
                 break;
             case "Shoes":
-                types.addAll(Arrays.asList("Formal", "Sneakers", "Training", "Heels", "Placeholder 2"));
+                for (TypeShoes typeShoes : TypeShoes.values()) {
+                    TypeObjects.add(typeShoes.getTypeshoes());
+                }
                 break;
-            case "Accesoires":
-                types.addAll(Arrays.asList("Watches", "Bags", "Caps", "Wallets", "Placeholder 2"));
+            case "Accessories":
+                for (TypeAccessories typeAccessories : TypeAccessories.values()) {
+                    TypeObjects.add(typeAccessories.getTypeaccessories());
+                }
                 break;
-            case "Placeholder 1":
-                types.addAll(Arrays.asList("Sweaters", "Shirts", "Accesoires", "Placeholder 1", "Placeholder 2"));
+            case "Gifts":
+                for (TypeGifts typeGifts : TypeGifts.values()) {
+                    TypeObjects.add(typeGifts.getTypegifts());
+                }
                 break;
-            case "Placeholder 2":
-                types.addAll(Arrays.asList("Sweaters", "Shirts", "Accesoires", "Placeholder 1", "Placeholder 2"));
+            case "Sport":
+                for (TypeSport typeSport : TypeSport.values()) {
+                    TypeObjects.add(typeSport.getTypesport());
+                }
                 break;
-            default:
-                types.addAll(Arrays.asList("Sweaters", "Shirts", "Accesoires", "Placeholder 1", "Placeholder 2"));
+            case "Wellness":
+                for (TypeWellness typeWellness : TypeWellness.values()) {
+                    TypeObjects.add(typeWellness.getTypewellness());
+                }
+                break;
+            case "Interior":
+                for (TypeInterior typeInterior : TypeInterior.values()) {
+                    TypeObjects.add(typeInterior.getTypeinterior());
+                }
+                break;
         }
 
-        // Returns the ArrayList types, now filled with elements
-        return types;
+        // Filling the arrayAdapter with the values of TypeObjects
+        ArrayAdapter<String> TypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, TypeObjects);
+        TypeSpinner.setAdapter(TypeAdapter);
     }
 
     private class MyClickListener implements View.OnClickListener {

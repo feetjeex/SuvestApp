@@ -118,44 +118,44 @@ public class OCRHelper extends AppCompatActivity {
                     }
                     break;
                 case "Shoes":
-                    for (TypeClothing typeClothing : TypeClothing.values()) {
-                        if (typeClothing.name().equals(text.toUpperCase())) {
-                            product.setType(typeClothing.getTypeclothing());
+                    for (TypeShoes typeShoes : TypeShoes.values()) {
+                        if (typeShoes.name().equals(text.toUpperCase())) {
+                            product.setType(typeShoes.getTypeshoes());
                         }
                     }
                     break;
-                case "Accesories":
-                    for (TypeClothing typeClothing : TypeClothing.values()) {
-                        if (typeClothing.name().equals(text.toUpperCase())) {
-                            product.setType(typeClothing.getTypeclothing());
+                case "Accessories":
+                    for (TypeAccessories typeAccessories : TypeAccessories.values()) {
+                        if (typeAccessories.name().equals(text.toUpperCase())) {
+                            product.setType(typeAccessories.getTypeaccessories());
                         }
                     }
                     break;
                 case "Gifts":
-                    for (TypeClothing typeClothing : TypeClothing.values()) {
-                        if (typeClothing.name().equals(text.toUpperCase())) {
-                            product.setType(typeClothing.getTypeclothing());
+                    for (TypeGifts typeGifts : TypeGifts.values()) {
+                        if (typeGifts.name().equals(text.toUpperCase())) {
+                            product.setType(typeGifts.getTypegifts());
                         }
                     }
                     break;
                 case "Sport":
-                    for (TypeClothing typeClothing : TypeClothing.values()) {
-                        if (typeClothing.name().equals(text.toUpperCase())) {
-                            product.setType(typeClothing.getTypeclothing());
+                    for (TypeSport typeSport : TypeSport.values()) {
+                        if (typeSport.name().equals(text.toUpperCase())) {
+                            product.setType(typeSport.getTypesport());
                         }
                     }
                     break;
                 case "Wellness":
-                    for (TypeClothing typeClothing : TypeClothing.values()) {
-                        if (typeClothing.name().equals(text.toUpperCase())) {
-                            product.setType(typeClothing.getTypeclothing());
+                    for (TypeWellness typeWellness : TypeWellness.values()) {
+                        if (typeWellness.name().equals(text.toUpperCase())) {
+                            product.setType(typeWellness.getTypewellness());
                         }
                     }
                     break;
                 case "Interior":
-                    for (TypeClothing typeClothing : TypeClothing.values()) {
-                        if (typeClothing.name().equals(text.toUpperCase())) {
-                            product.setType(typeClothing.getTypeclothing());
+                    for (TypeInterior typeInterior : TypeInterior.values()) {
+                        if (typeInterior.name().equals(text.toUpperCase())) {
+                            product.setType(typeInterior.getTypeinterior());
                         }
                     }
                     break;
