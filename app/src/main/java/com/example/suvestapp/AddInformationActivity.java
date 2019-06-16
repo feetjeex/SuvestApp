@@ -39,7 +39,7 @@ public class AddInformationActivity extends AppCompatActivity {
     Spinner CategorySpinner;
     Spinner TypeSpinner;
     String imageUri;
-    private boolean mCategoryspinnerInitialized;
+    private boolean mCategoryspinnerInitialized = true;
     ArrayList<String> types = new ArrayList<>();
 
     @Override

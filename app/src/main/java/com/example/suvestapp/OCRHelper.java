@@ -15,6 +15,9 @@ import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class OCRHelper extends AppCompatActivity {
 
@@ -37,138 +40,163 @@ public class OCRHelper extends AppCompatActivity {
 
             TextBlock OcrTextblock = textBlock.get(i);
             if (OcrTextblock != null) {
-
                 String text = OcrTextblock.getValue().toString();
+                List<String> textList = CheckerPreparer(text);
+
+
                 Log.d("OCRHelper", "OCRHelperFunctionality: String is:" + text);
-                PriceChecker(text);
-                RetailerChecker(text);
-                CategoryChecker(text);
-                TypeChecker(text);
-                ColorChecker(text);
+                PriceChecker(textList);
+                RetailerChecker(textList);
+                CategoryChecker(textList);
+                TypeChecker(textList);
+                ColorChecker(textList);
             }
         }
     }
 
-    private void PriceChecker (String text) {
+    private List<String> CheckerPreparer (String text) {
+        String str[] = text.split(" ");
+        List<String> al = Arrays.asList(str);
+        //al = Arrays.asList(str);
+        return al;
+    }
+
+    private void PriceChecker (List<String> text) {
 
         Log.d("PriceChecker", "RetailerChecker: Starting PriceChecker");
         // Checks the given string for a € character
-        for (int i = 0; i < text.length(); i++){
-            char c = text.charAt(i);
-            if (c == '€' || c == '$' || c == '£') {
+        for(String s: text) {
+            for (int i = 0; i < s.length(); i++) {
+                char c = s.charAt(i);
+                if (c == '€' || c == '$' || c == '£') {
 
-                Log.d("PriceChecker", "RetailerChecker: euro sign found");
+                    Log.d("PriceChecker", "RetailerChecker: euro sign found");
 
-                // If the character at the i'th position is a '€' sign
-                int index = 0;
-                char[] array = new char[(text.length() - i)];
+                    // If the character at the i'th position is a '€' sign
+                    int index = 0;
+                    char[] array = new char[(s.length() - i)];
 
-                // Adds all the characters from the j'th position and adds them to a char array 'array'
-                for (int j = i + 1; j < text.length(); j++) {
-                    array[index] = text.charAt(j);
-                    index++;
+                    // Adds all the characters from the j'th position and adds them to a char array 'array'
+                    for (int j = i + 1; j < s.length(); j++) {
+                        array[index] = s.charAt(j);
+                        index++;
 
-                    // Converts the char array 'array' to a string
-                    String price = new String(array);
+                        // Converts the char array 'array' to a string
+                        String price = new String(array);
 
-                    // Converts the string to a float and sets the price of the product to this value
-                    Float floatPrice = Float.parseFloat(price);
-                    product.setPrice(floatPrice);
-                    Log.d("PriceChecker", "RetailerChecker: Price found");
+                        try {
+                            // Converts the string to a float and sets the price of the product to this value
+                            Float floatPrice = Float.parseFloat(price);
+                            product.setPrice(floatPrice);
+                            Log.d("PriceChecker", "RetailerChecker: Price found");
+                        } catch (NumberFormatException e) {
+                            break;
+
+                        }
+                    }
                 }
             }
         }
     }
 
-    private void RetailerChecker (String text) {
+    private void RetailerChecker (List<String> text) {
 
         Log.d("RetailChecker", "RetailerChecker: Starting retailchecker");
         // Checks if the given string contains the name of a retailer
         //First get enum constant reference from
-        for (Retailer retailer: Retailer.values()) {
-            if (retailer.name().equals(text.toUpperCase())) {
-                product.setRetailer(retailer.getRetailer());
+        for(String s: text) {
+            Log.d("RetailChecker", "RetailerChecker: s is: " + s);
+            for (Retailer retailer : Retailer.values()) {
+                if (retailer.name().equals(s.toUpperCase())) {
+                    product.setRetailer(retailer.getRetailer());
+                }
             }
         }
     }
 
-    private void CategoryChecker (String text) {
+    private void CategoryChecker (List<String> text) {
 
-        // Checks if the given string contains the name of the Category
-        for (Category category: Category.values()) {
-            if (category.name().equals(text.toUpperCase())) {
-                product.setCategory(category.getCategory());
+        for(String s: text) {
+            // Checks if the given string contains the name of the Category
+            for (Category category : Category.values()) {
+                if (category.name().equals(s.toUpperCase())) {
+                    product.setCategory(category.getCategory());
+                }
             }
         }
     }
 
-    private void TypeChecker (String text) {
+    private void TypeChecker (List<String> text) {
 
-        // Checks if the given string contains the name of the Type
-        if (product.getCategory() != null) {
-            String category = product.getCategory();
+        for(String s: text) {
+            // Checks if the given string contains the name of the Type
+            if (product.getCategory() != null) {
+                String category = product.getCategory();
 
-            // Checks which Type Enum should be used
-            switch(category) {
-                case "Clothing":
-                    for (TypeClothing typeClothing : TypeClothing.values()) {
-                        if (typeClothing.name().equals(text.toUpperCase())) {
-                            product.setType(typeClothing.getTypeclothing());
+                // Checks which Type Enum should be used
+                switch (category) {
+                    case "Clothing":
+                        for (TypeClothing typeClothing : TypeClothing.values()) {
+                            if (typeClothing.name().equals(s.toUpperCase())) {
+                                product.setType(typeClothing.getTypeclothing());
+                            }
                         }
-                    }
-                    break;
-                case "Shoes":
-                    for (TypeShoes typeShoes : TypeShoes.values()) {
-                        if (typeShoes.name().equals(text.toUpperCase())) {
-                            product.setType(typeShoes.getTypeshoes());
+                        break;
+                    case "Shoes":
+                        for (TypeShoes typeShoes : TypeShoes.values()) {
+                            if (typeShoes.name().equals(s.toUpperCase())) {
+                                product.setType(typeShoes.getTypeshoes());
+                            }
                         }
-                    }
-                    break;
-                case "Accessories":
-                    for (TypeAccessories typeAccessories : TypeAccessories.values()) {
-                        if (typeAccessories.name().equals(text.toUpperCase())) {
-                            product.setType(typeAccessories.getTypeaccessories());
+                        break;
+                    case "Accessories":
+                        for (TypeAccessories typeAccessories : TypeAccessories.values()) {
+                            if (typeAccessories.name().equals(s.toUpperCase())) {
+                                product.setType(typeAccessories.getTypeaccessories());
+                            }
                         }
-                    }
-                    break;
-                case "Gifts":
-                    for (TypeGifts typeGifts : TypeGifts.values()) {
-                        if (typeGifts.name().equals(text.toUpperCase())) {
-                            product.setType(typeGifts.getTypegifts());
+                        break;
+                    case "Gifts":
+                        for (TypeGifts typeGifts : TypeGifts.values()) {
+                            if (typeGifts.name().equals(s.toUpperCase())) {
+                                product.setType(typeGifts.getTypegifts());
+                            }
                         }
-                    }
-                    break;
-                case "Sport":
-                    for (TypeSport typeSport : TypeSport.values()) {
-                        if (typeSport.name().equals(text.toUpperCase())) {
-                            product.setType(typeSport.getTypesport());
+                        break;
+                    case "Sport":
+                        for (TypeSport typeSport : TypeSport.values()) {
+                            if (typeSport.name().equals(s.toUpperCase())) {
+                                product.setType(typeSport.getTypesport());
+                            }
                         }
-                    }
-                    break;
-                case "Wellness":
-                    for (TypeWellness typeWellness : TypeWellness.values()) {
-                        if (typeWellness.name().equals(text.toUpperCase())) {
-                            product.setType(typeWellness.getTypewellness());
+                        break;
+                    case "Wellness":
+                        for (TypeWellness typeWellness : TypeWellness.values()) {
+                            if (typeWellness.name().equals(s.toUpperCase())) {
+                                product.setType(typeWellness.getTypewellness());
+                            }
                         }
-                    }
-                    break;
-                case "Interior":
-                    for (TypeInterior typeInterior : TypeInterior.values()) {
-                        if (typeInterior.name().equals(text.toUpperCase())) {
-                            product.setType(typeInterior.getTypeinterior());
+                        break;
+                    case "Interior":
+                        for (TypeInterior typeInterior : TypeInterior.values()) {
+                            if (typeInterior.name().equals(s.toUpperCase())) {
+                                product.setType(typeInterior.getTypeinterior());
+                            }
                         }
-                    }
-                    break;
+                        break;
+                }
             }
         }
     }
 
-    private void ColorChecker (String text) {
+    private void ColorChecker (List<String> text) {
 
-        // Checks if the given string contains the colour of the product
-        for (Color color: Color.values()) {
-                if (color.name().equals(text.toUpperCase())) {
+        for(String s: text) {
+            // Checks if the given string contains the colour of the product
+            for (Color color : Color.values()) {
+                if (color.name().equals(s.toUpperCase())) {
                     product.setColor(color.getColor());
+                }
             }
         }
     }

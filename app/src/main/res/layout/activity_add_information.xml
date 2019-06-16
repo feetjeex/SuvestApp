@@ -6,10 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".AddInformationActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"></LinearLayout>
+
     <ImageView
         android:id="@+id/infoImageView"
-        android:layout_width="288dp"
-        android:layout_height="137dp"
+        android:layout_width="376dp"
+        android:layout_height="344dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
@@ -26,30 +31,25 @@
         android:id="@+id/infoImageRemove"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:text="Remove"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/infoImageView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.088" />
+        app:layout_constraintVertical_bias="0.556" />
 
     <Button
         android:id="@+id/infoImageNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:text="Next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toEndOf="@+id/infoImageView"
         app:layout_constraintTop_toBottomOf="@+id/infoImageRemove"
         app:layout_constraintVertical_bias="0.126" />
 
@@ -57,169 +57,175 @@
         android:id="@+id/TvCategory"
         android:layout_width="60dp"
         android:layout_height="28dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="Category:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/infoImageView"
-        app:layout_constraintVertical_bias="0.22" />
+        app:layout_constraintVertical_bias="0.299" />
 
     <TextView
         android:id="@+id/TvType"
         android:layout_width="60dp"
         android:layout_height="28dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="Type:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TvCategory"
-        app:layout_constraintVertical_bias="0.103" />
+        app:layout_constraintTop_toBottomOf="@+id/infoImageView"
+        app:layout_constraintVertical_bias="0.446" />
 
     <TextView
         android:id="@+id/TvPrice"
         android:layout_width="60dp"
         android:layout_height="28dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="Price:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TvType"
-        app:layout_constraintVertical_bias="0.117" />
+        app:layout_constraintTop_toBottomOf="@+id/infoImageView"
+        app:layout_constraintVertical_bias="0.629" />
 
     <TextView
         android:id="@+id/TvURL"
         android:layout_width="60dp"
         android:layout_height="28dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="76dp"
         android:text="URL:"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TvPrice"
-        app:layout_constraintVertical_bias="0.129" />
+        app:layout_constraintTop_toBottomOf="@+id/infoImageView"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/TvRetailer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_width="60dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="Retailer:"
-        app:layout_constraintBottom_toTopOf="@+id/TvCategory"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/infoImageView"
-        app:layout_constraintVertical_bias="0.685" />
+        app:layout_constraintVertical_bias="0.033" />
 
     <Spinner
         android:id="@+id/CategorySpinner"
         android:layout_width="191dp"
-        android:layout_height="28dp"
+        android:layout_height="34dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.03"
+        app:layout_constraintHorizontal_bias="0.031"
         app:layout_constraintStart_toEndOf="@+id/TvCategory"
         app:layout_constraintTop_toBottomOf="@+id/infoImageView"
-        app:layout_constraintVertical_bias="0.22" />
+        app:layout_constraintVertical_bias="0.299" />
 
     <Spinner
         android:id="@+id/TypeSpinner"
         android:layout_width="191dp"
-        android:layout_height="28dp"
+        android:layout_height="34dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.032"
+        app:layout_constraintHorizontal_bias="0.031"
         app:layout_constraintStart_toEndOf="@+id/TvType"
-        app:layout_constraintTop_toBottomOf="@+id/CategorySpinner"
-        app:layout_constraintVertical_bias="0.103" />
+        app:layout_constraintTop_toBottomOf="@+id/infoImageView"
+        app:layout_constraintVertical_bias="0.446" />
 
     <EditText
         android:id="@+id/InputPrice"
         android:layout_width="191dp"
-        android:layout_height="28dp"
+        android:layout_height="36dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="128dp"
         android:hint="$70"
-        android:textSize="10sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.032"
+        app:layout_constraintHorizontal_bias="0.04"
         app:layout_constraintStart_toEndOf="@+id/TvPrice"
-        app:layout_constraintTop_toBottomOf="@+id/TypeSpinner"
-        app:layout_constraintVertical_bias="0.117" />
+        app:layout_constraintTop_toBottomOf="@+id/infoImageView"
+        app:layout_constraintVertical_bias="0.995" />
 
     <EditText
         android:id="@+id/InputURL"
         android:layout_width="191dp"
-        android:layout_height="28dp"
+        android:layout_height="36dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:hint="URL"
-        android:textSize="10sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.032"
+        app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toEndOf="@+id/TvURL"
-        app:layout_constraintTop_toBottomOf="@+id/InputPrice"
-        app:layout_constraintVertical_bias="0.129" />
+        app:layout_constraintTop_toBottomOf="@+id/infoImageView"
+        app:layout_constraintVertical_bias="0.792" />
 
     <EditText
         android:id="@+id/InputRetailer"
         android:layout_width="191dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="20dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:hint="Asos"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/CategorySpinner"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/TvRetailer"
         app:layout_constraintTop_toBottomOf="@+id/infoImageView"
-        app:layout_constraintVertical_bias="0.765" />
+        app:layout_constraintVertical_bias="0.033" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_width="60dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="Color:"
-        app:layout_constraintBottom_toTopOf="@+id/TvType"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TvCategory"
-        app:layout_constraintVertical_bias="0.538" />
+        app:layout_constraintTop_toBottomOf="@+id/infoImageView"
+        app:layout_constraintVertical_bias="0.174" />
 
     <EditText
         android:id="@+id/InputColor"
-        android:layout_width="190dp"
-        android:layout_height="35dp"
+        android:layout_width="191dp"
+        android:layout_height="36dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:textSize="10sp"
+        android:layout_marginBottom="8dp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.189"
+        app:layout_constraintHorizontal_bias="0.031"
         app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/CategorySpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/infoImageView"
+        app:layout_constraintVertical_bias="0.174" />
 
 </android.support.constraint.ConstraintLayout>

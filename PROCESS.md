@@ -44,3 +44,6 @@ in een database. Ik vroeg me af of er geen API was om makkelijk CSV's te laden.
 # Day 8 (Donderdag)
 
 # Day 9 (Vrijdag)
+
+Gewerkt aan het implementeren van Enums met Keywords waarmee de string uit de OCR mee vergeleken wordt. Ik merkte dat ik betere resultaten behaalde
+(bij het vergelijken) nadat ik de String opknipte in substrings (na elke whitespace).
