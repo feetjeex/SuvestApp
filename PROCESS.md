@@ -47,3 +47,9 @@ in een database. Ik vroeg me af of er geen API was om makkelijk CSV's te laden.
 
 Gewerkt aan het implementeren van Enums met Keywords waarmee de string uit de OCR mee vergeleken wordt. Ik merkte dat ik betere resultaten behaalde
 (bij het vergelijken) nadat ik de String opknipte in substrings (na elke whitespace).
+
+# Day 10 (Maandag)
+
+Vandaag gewerkt aan het implementeren van een knop om de resultaten in de listview te filteren en te sorteren.
+
+# Day 11 (Dinsdag)

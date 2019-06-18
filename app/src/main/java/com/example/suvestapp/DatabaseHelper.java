@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -13,7 +16,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Constructor of the class
     private DatabaseHelper(Context context) {
-        super(context, "products", null, 4);
+        super(context, "products", null, 6);
     }
 
     // Checks if an instance already exists, if not: Creates one
@@ -40,6 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("Retailer", product.getRetailer());
         contentValues.put("Price", product.getPrice());
         contentValues.put("ImageUri", product.getImageUri());
+        Log.d(TAG, "DataBaseHelper: product.getImageUri() = " + product.getImageUri());
         contentValues.put("URL", product.getURL());
         contentValues.put("Color", product.getColor());
 
@@ -48,10 +52,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Method to select all rows from the database
-    public Cursor selectAll(String type) {
+    public Cursor selectAll(String type, String sort) {
         SQLiteDatabase db;
         db = getWritableDatabase();
-        cursor = db.rawQuery("SELECT * FROM products WHERE Type = '"+type+"' ", null);
+
+        switch (sort) {
+            case "random":
+                cursor = db.rawQuery("SELECT * FROM products WHERE Type = '"+type+"' ", null);
+                break;
+            case "Price ascending":
+                cursor = db.rawQuery("SELECT * FROM products WHERE Type = '"+type+"' ORDER BY Price ASC", null);
+                break;
+            case "Price descending":
+                cursor = db.rawQuery("SELECT * FROM products WHERE Type = '"+type+"' ORDER BY Price DESC", null);
+                break;
+            case "Date added ascending":
+                cursor = db.rawQuery("SELECT * FROM products WHERE Type = '"+type+"' ORDER BY Timestamp ASC", null);
+                break;
+            case "Date added descending":
+                cursor = db.rawQuery("SELECT * FROM products WHERE Type = '"+type+"' ORDER BY Timestamp DESC", null);
+                break;
+        }
 
         // Returns the cursor containing the rows from the database that the user selected
         return cursor;

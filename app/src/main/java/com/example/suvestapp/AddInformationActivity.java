@@ -39,6 +39,7 @@ public class AddInformationActivity extends AppCompatActivity {
     Spinner CategorySpinner;
     Spinner TypeSpinner;
     String imageUri;
+    Uri mImageUri;
     private boolean mCategoryspinnerInitialized = true;
     ArrayList<String> types = new ArrayList<>();
 
@@ -52,8 +53,8 @@ public class AddInformationActivity extends AppCompatActivity {
         ArrayList<Uri> stringUri = intent.getParcelableArrayListExtra("imageUri");
 
         // Extracts the String passed by the intent and parses it back to a Uri
-        Uri mImageUri = stringUri.get(0);
-        //Uri mImageUri = Uri.parse(imageUri);
+        mImageUri = stringUri.get(0);
+        Log.d(TAG, "AddInformationActivity onCreate, stringUri = : " + mImageUri.toString());
 
         try {
 
@@ -219,7 +220,8 @@ public class AddInformationActivity extends AppCompatActivity {
             product.setURL(URL);
             product.setPrice(Price);
             product.setTimestamp(format);
-            product.setImageUri(imageUri);
+            product.setImageUri(mImageUri.toString());
+            Log.d(TAG, "AddInformationActivity onClick, imageUri: " + mImageUri);
             product.setColor(Color);
 
             // Calls the 'addProduct' method
@@ -234,5 +236,9 @@ public class AddInformationActivity extends AppCompatActivity {
         // Method which inserts the selected Product in the database
         DatabaseHelper databaseHelper = DatabaseHelper.getInstance(this);
         databaseHelper.insert(product);
+    }
+
+    public void buttonRemove(View view) {
+        Log.d(TAG, "buttonRemove: ");
     }
 }
