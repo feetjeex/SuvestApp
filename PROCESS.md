@@ -53,3 +53,16 @@ Gewerkt aan het implementeren van Enums met Keywords waarmee de string uit de OC
 Vandaag gewerkt aan het implementeren van een knop om de resultaten in de listview te filteren en te sorteren.
 
 # Day 11 (Dinsdag)
+
+Gewerkt aan de filter knoppen
+
+# Day 12 (Woensdag)
+
+# Day 13 (Donderdag)
+
+Darian moet nog implementeren dat lifters en chauffeurs zich op een liftplek kunnen aanmelden. Hij denkt eraan een knop te maken bij elke liftplek.
+Bij aanmelden wordt de chauffeur / lifter in een arraylist lokaal opgeslagen. Bij de echte versie moet dit natuurlijk online. Ik vroeg me af
+of dat niet kon met de Rester server.
+
+
+

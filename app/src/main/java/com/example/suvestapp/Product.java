@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Product implements Serializable {
 
     private int id;
-    private String category, type, retailer, timestamp, imageUri, URL, color;
+    private String category, type, retailer, imageUri, URL, color;
     private float price;
 
     public Product() {
@@ -57,14 +57,6 @@ public class Product implements Serializable {
 
     public void setRetailer(String retailer) {
         this.retailer = retailer;
-    }
-
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
     }
 
     public String getImageUri() {

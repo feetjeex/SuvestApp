@@ -8,20 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 
 public class AddInformationActivity extends AppCompatActivity {
 
@@ -71,7 +66,7 @@ public class AddInformationActivity extends AppCompatActivity {
         product = ocrHelper.ProductReturner();
 
         // Sets the image in the layout to the Image passed by the intent
-        ImageView infoImageView = findViewById(R.id.infoImageView);
+        ImageView infoImageView = findViewById(R.id.detailImage);
         infoImageView.setImageURI(mImageUri);
 
         // Declare and initialize a new ArrayList CategoryObjects, and fill it with values from the Category Enum
@@ -114,7 +109,7 @@ public class AddInformationActivity extends AppCompatActivity {
 
         // Setting the Buttons Remove and Next
         Button infoImageNext = (Button) findViewById(R.id.infoImageNext);
-        Button infoImageRemove = (Button) findViewById(R.id.infoImageRemove);
+        Button infoImageRemove = (Button) findViewById(R.id.detailBuy);
 
         // Adding the OnClickListener to transfer the user to the next image
         View.OnClickListener listener = new MyClickListener();
@@ -209,9 +204,9 @@ public class AddInformationActivity extends AppCompatActivity {
             String Color = InputColor.getText().toString();
 
 
-            // Code to get the Timestamp field
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm - dd/MM/yyyy");
-            String format = simpleDateFormat.format(new Date());
+//            // Code to get the Timestamp field
+//            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm - dd/MM/yyyy");
+//            String format = simpleDateFormat.format(new Date());
 
             // Storing all the data in a Product object
             product.setCategory(Category);
@@ -219,7 +214,7 @@ public class AddInformationActivity extends AppCompatActivity {
             product.setRetailer(Retailer);
             product.setURL(URL);
             product.setPrice(Price);
-            product.setTimestamp(format);
+//            product.setTimestamp(format);
             product.setImageUri(mImageUri.toString());
             Log.d(TAG, "AddInformationActivity onClick, imageUri: " + mImageUri);
             product.setColor(Color);

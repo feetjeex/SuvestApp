@@ -10,7 +10,7 @@
     <GridView
         android:id="@+id/gridview"
         android:layout_width="wrap_content"
-        android:layout_height="579dp"
+        android:layout_height="509dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
@@ -31,55 +31,87 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="156dp"
+        android:layout_marginBottom="16dp"
         android:text="screenshots found"
         app:layout_constraintBottom_toTopOf="@+id/gridview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonFilter"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonSort" />
 
     <TextView
         android:id="@+id/numberScreenshots"
         android:layout_width="35dp"
         android:layout_height="20dp"
-        android:layout_marginStart="144dp"
+        android:layout_marginStart="64dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/gridview"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSort"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonSort" />
 
     <Button
         android:id="@+id/buttonSort"
-        android:layout_width="164dp"
+        android:layout_width="98dp"
         android:layout_height="34dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="220dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:onClick="buttonSort"
         android:text="Sort"
         android:textSize="10sp"
-        android:onClick="buttonSort"
         app:layout_constraintBottom_toTopOf="@+id/gridview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.393" />
+        app:layout_constraintEnd_toStartOf="@+id/buttonColor"
+        app:layout_constraintStart_toEndOf="@+id/buttonRetailer"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttonFilter"
-        android:layout_width="164dp"
+        android:id="@+id/buttonColor"
+        android:layout_width="98dp"
         android:layout_height="34dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:onClick="buttonFilter"
-        android:text="Filter"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="buttonColor"
+        android:text="Color"
         android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/gridview"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonRetailer"
+        android:layout_width="98dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="buttonRetailer"
+        android:text="Retailer"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/gridview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.051"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonReset"
+        android:layout_width="98dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="Reset"
+        android:textSize="10sp"
+        android:onClick="buttonReset"
+        app:layout_constraintBottom_toTopOf="@+id/gridview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.952"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSort" />
 
 
 </android.support.constraint.ConstraintLayout>

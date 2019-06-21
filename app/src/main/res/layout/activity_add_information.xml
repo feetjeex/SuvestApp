@@ -7,7 +7,7 @@
     tools:context=".AddInformationActivity">
 
     <ImageView
-        android:id="@+id/infoImageView"
+        android:id="@+id/detailImage"
         android:layout_width="376dp"
         android:layout_height="346dp"
         android:layout_marginStart="8dp"
@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/sweatertest" />
 
     <Button
-        android:id="@+id/infoImageRemove"
+        android:id="@+id/detailBuy"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
@@ -42,7 +42,7 @@
         android:text="Next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/infoImageRemove"
+        app:layout_constraintStart_toEndOf="@+id/detailBuy"
         app:layout_constraintTop_toBottomOf="@+id/InputURL" />
 
     <TextView
@@ -93,7 +93,7 @@
         android:layout_marginTop="8dp"
         android:text="Retailer:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/infoImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/detailImage" />
 
     <Spinner
         android:id="@+id/CategorySpinner"
@@ -147,7 +147,7 @@
         android:hint="Asos"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/TvRetailer"
-        app:layout_constraintTop_toBottomOf="@+id/infoImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/detailImage" />
 
     <TextView
         android:id="@+id/textView2"
