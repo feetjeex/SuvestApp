@@ -9,8 +9,11 @@ public class Product implements Serializable {
     private float price;
 
     public Product() {
+
+        // Constructor of the Class
     }
 
+    // Getters and Setters
     public String getColor() {
         return color;
     }

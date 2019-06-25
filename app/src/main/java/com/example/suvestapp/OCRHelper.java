@@ -4,24 +4,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseArray;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class OCRHelper extends AppCompatActivity {
 
-    // Initializes a product object
+    // Initializes the global variables
     Product product = new Product();
     SparseArray<TextBlock> textBlock;
     Context context;
@@ -30,49 +27,51 @@ public class OCRHelper extends AppCompatActivity {
     public OCRHelper(Bitmap bitmap, Context context) {
         this.context = context;
         textBlock = OCRFunctionality(bitmap);
-        OCRHelperFunctionality(textBlock);
+        ocrHelperFunctionality(textBlock);
     }
 
-    private void OCRHelperFunctionality(SparseArray<TextBlock> textBlock) {
+    private void ocrHelperFunctionality(SparseArray<TextBlock> textBlock) {
 
         // Loops trough all the TextBlocks in the SparseArray<TextBlock> textBlock
         for (int i = 0; i <= textBlock.size(); i++) {
 
-            TextBlock OcrTextblock = textBlock.get(i);
-            if (OcrTextblock != null) {
-                String text = OcrTextblock.getValue().toString();
-                List<String> textList = CheckerPreparer(text);
+            TextBlock ocrTextblock = textBlock.get(i);
+            if (ocrTextblock != null) {
 
+                // Extracts the content of an TextBlock ocrTextblock
+                String text = ocrTextblock.getValue().toString();
 
-                Log.d("OCRHelper", "OCRHelperFunctionality: String is:" + text);
-                PriceChecker(textList);
-                RetailerChecker(textList);
-                CategoryChecker(textList);
-                TypeChecker(textList);
-                ColorChecker(textList);
+                // Calls the checkerPreparer method on the String of text extracted from the ocrTextblock
+                // This method splits the String into smaller substrings and stores them into a List of Strings
+                List<String> textList = checkerPreparer(text);
+
+                // Checks the List of String textList for possible matches with keywords such as "Asos" or "Sweater"
+                priceChecker(textList);
+                retailerChecker(textList);
+                categoryChecker(textList);
+                typeChecker(textList);
+                colorChecker(textList);
             }
         }
     }
 
-    private List<String> CheckerPreparer (String text) {
+    private List<String> checkerPreparer(String text) {
+
+        // This method splits the String into smaller substrings and stores them into a List of Strings
         String str[] = text.split(" ");
         List<String> al = Arrays.asList(str);
-        //al = Arrays.asList(str);
         return al;
     }
 
-    private void PriceChecker (List<String> text) {
+    private void priceChecker(List<String> text) {
 
-        Log.d("PriceChecker", "RetailerChecker: Starting PriceChecker");
-        // Checks the given string for a € character
+        // Checks the given string for a '€', '$' or '£' character
         for(String s: text) {
             for (int i = 0; i < s.length(); i++) {
                 char c = s.charAt(i);
+
+                // If the character at the i'th position is a '€' sign
                 if (c == '€' || c == '$' || c == '£') {
-
-                    Log.d("PriceChecker", "RetailerChecker: euro sign found");
-
-                    // If the character at the i'th position is a '€' sign
                     int index = 0;
                     char[] array = new char[(s.length() - i)];
 
@@ -88,8 +87,9 @@ public class OCRHelper extends AppCompatActivity {
                             // Converts the string to a float and sets the price of the product to this value
                             Float floatPrice = Float.parseFloat(price);
                             product.setPrice(floatPrice);
-                            Log.d("PriceChecker", "RetailerChecker: Price found");
+
                         } catch (NumberFormatException e) {
+                            Toast.makeText(context, "Error while converting price into a float.", Toast.LENGTH_SHORT).show();
                             break;
 
                         }
@@ -99,14 +99,14 @@ public class OCRHelper extends AppCompatActivity {
         }
     }
 
-    private void RetailerChecker (List<String> text) {
+    private void retailerChecker(List<String> text) {
 
-        Log.d("RetailChecker", "RetailerChecker: Starting retailchecker");
-        // Checks if the given string contains the name of a retailer
-        //First get enum constant reference from
+        // Checks if the given list of Strings contains the name of a retailer
+        // Iterates through all Strings in the List and compares them to the constants in the Retailer Enum
         for(String s: text) {
-            Log.d("RetailChecker", "RetailerChecker: s is: " + s);
             for (Retailer retailer : Retailer.values()) {
+
+                // If a match is found, sets the the relevant field of the product object to this value
                 if (retailer.name().equals(s.toUpperCase())) {
                     product.setRetailer(retailer.getRetailer());
                 }
@@ -114,11 +114,15 @@ public class OCRHelper extends AppCompatActivity {
         }
     }
 
-    private void CategoryChecker (List<String> text) {
+    private void categoryChecker(List<String> text) {
 
+        // Checks if the given list of Strings contains the name of a category of product
         for(String s: text) {
-            // Checks if the given string contains the name of the Category
+
+            // Iterates trough all the constants in the Category Enum
             for (Category category : Category.values()) {
+
+                // If a match is found, sets the the relevant field of the product object to this value
                 if (category.name().equals(s.toUpperCase())) {
                     product.setCategory(category.getCategory());
                 }
@@ -126,16 +130,20 @@ public class OCRHelper extends AppCompatActivity {
         }
     }
 
-    private void TypeChecker (List<String> text) {
+    private void typeChecker(List<String> text) {
 
+        // Checks if the given list of Strings contains the name of a type of product
         for(String s: text) {
-            // Checks if the given string contains the name of the Type
+
+            // If there is already a specified type in the product object
             if (product.getCategory() != null) {
                 String category = product.getCategory();
 
-                // Checks which Type Enum should be used
+                // Checks which type Enum should be used
                 switch (category) {
                     case "Clothing":
+
+                        // Iterates trough all the constants in the relevant Enum and if a match is found, sets the product objects type to this value
                         for (TypeClothing typeClothing : TypeClothing.values()) {
                             if (typeClothing.name().equals(s.toUpperCase())) {
                                 product.setType(typeClothing.getTypeclothing());
@@ -143,6 +151,8 @@ public class OCRHelper extends AppCompatActivity {
                         }
                         break;
                     case "Shoes":
+
+                        // Iterates trough all the constants in the relevant Enum and if a match is found, sets the product objects type to this value
                         for (TypeShoes typeShoes : TypeShoes.values()) {
                             if (typeShoes.name().equals(s.toUpperCase())) {
                                 product.setType(typeShoes.getTypeshoes());
@@ -150,6 +160,8 @@ public class OCRHelper extends AppCompatActivity {
                         }
                         break;
                     case "Accessories":
+
+                        // Iterates trough all the constants in the relevant Enum and if a match is found, sets the product objects type to this value
                         for (TypeAccessories typeAccessories : TypeAccessories.values()) {
                             if (typeAccessories.name().equals(s.toUpperCase())) {
                                 product.setType(typeAccessories.getTypeaccessories());
@@ -157,6 +169,8 @@ public class OCRHelper extends AppCompatActivity {
                         }
                         break;
                     case "Gifts":
+
+                        // Iterates trough all the constants in the relevant Enum and if a match is found, sets the product objects type to this value
                         for (TypeGifts typeGifts : TypeGifts.values()) {
                             if (typeGifts.name().equals(s.toUpperCase())) {
                                 product.setType(typeGifts.getTypegifts());
@@ -164,6 +178,8 @@ public class OCRHelper extends AppCompatActivity {
                         }
                         break;
                     case "Sport":
+
+                        // Iterates trough all the constants in the relevant Enum and if a match is found, sets the product objects type to this value
                         for (TypeSport typeSport : TypeSport.values()) {
                             if (typeSport.name().equals(s.toUpperCase())) {
                                 product.setType(typeSport.getTypesport());
@@ -171,6 +187,8 @@ public class OCRHelper extends AppCompatActivity {
                         }
                         break;
                     case "Wellness":
+
+                        // Iterates trough all the constants in the relevant Enum and if a match is found, sets the product objects type to this value
                         for (TypeWellness typeWellness : TypeWellness.values()) {
                             if (typeWellness.name().equals(s.toUpperCase())) {
                                 product.setType(typeWellness.getTypewellness());
@@ -178,6 +196,8 @@ public class OCRHelper extends AppCompatActivity {
                         }
                         break;
                     case "Interior":
+
+                        // Iterates trough all the constants in the relevant Enum and if a match is found, sets the product objects type to this value
                         for (TypeInterior typeInterior : TypeInterior.values()) {
                             if (typeInterior.name().equals(s.toUpperCase())) {
                                 product.setType(typeInterior.getTypeinterior());
@@ -189,11 +209,15 @@ public class OCRHelper extends AppCompatActivity {
         }
     }
 
-    private void ColorChecker (List<String> text) {
+    private void colorChecker(List<String> text) {
 
+        // Checks if the given list of Strings contains a color
         for(String s: text) {
-            // Checks if the given string contains the colour of the product
+
+            // Iterates trough all the constants in the Color Enum
             for (Color color : Color.values()) {
+
+                // If a match is found, sets the the relevant field of the product object to this value
                 if (color.name().equals(s.toUpperCase())) {
                     product.setColor(color.getColor());
                 }
@@ -203,37 +227,34 @@ public class OCRHelper extends AppCompatActivity {
 
     public SparseArray<TextBlock> OCRFunctionality(Bitmap bitmap) {
 
+        // Initializes a SparseArray to store the TextBlocks
         SparseArray<TextBlock> textBlocks;
-        // imageBitmap is the Bitmap image you're trying to process for text
+
+        // Check if the bitmap is not empty
         if(bitmap != null) {
 
-            Log.d("context", "OCRFunctionality: " + (context == null));
+            // Creates a new textRecognizer object
             TextRecognizer textRecognizer = new TextRecognizer.Builder(context).build();
 
+            // If the OCRFunctionality is not functional
             if(!textRecognizer.isOperational()) {
 
-                Toast.makeText(context,"Detector dependencies are not yet available.", Toast.LENGTH_LONG).show();
-
-                // Check for low storage.  If there is low storage, the native library will not be
-                // downloaded, so detection will not become operational.
+                // Checks for low storage
+                // If there is low storage, the native library will not be downloaded, so detection will not become operational
                 IntentFilter lowstorageFilter = new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW);
                 boolean hasLowStorage = registerReceiver(null, lowstorageFilter) != null;
 
+                // In case the storage is low
                 if (hasLowStorage) {
                     Toast.makeText(context,"Low Storage", Toast.LENGTH_LONG).show();
                 }
             }
 
+            // Performs the actual OCRFunctionality
+            Frame imageFrame = new Frame.Builder().setBitmap(bitmap).build();
 
-            Frame imageFrame = new Frame.Builder()
-                    .setBitmap(bitmap)
-                    .build();
-
+            // Fills the SparseArray with textBlocks
             textBlocks = textRecognizer.detect(imageFrame);
-
-//            for (int i = 0; i < textBlocks.size(); i++) {
-//                TextBlock textBlock = textBlocks.get(textBlocks.keyAt(i));
-//            }
         }
 
         else {
@@ -243,7 +264,7 @@ public class OCRHelper extends AppCompatActivity {
         return textBlocks;
     }
 
-    public Product ProductReturner() {
+    public Product productReturner() {
 
         // Returns a product object
         return product;

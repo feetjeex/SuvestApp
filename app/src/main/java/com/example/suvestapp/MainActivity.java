@@ -5,34 +5,32 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import androidx.appcompat.widget.Toolbar;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
-    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initializes the ArrayAdapter for the CategoriesListView
-        ArrayList<String>categories = new ArrayList<>(Arrays.asList("Clothing", "Shoes", "Accesoires", "Placeholder 1", "Placeholder 2"));
-        ArrayAdapter<String> categoriesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, categories);
+        // Initializes the ArrayAdapter for the CategoriesListView and adds all the categories from the Category Enum
+        ArrayList<String> CategoryObjects = new ArrayList<>();
+        for (Category category: Category.values()) {
+            CategoryObjects.add(category.getCategory());
+        }
+        ArrayAdapter<String> categoriesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, CategoryObjects);
 
         // Initializing and assigning the FloatingActionButton
         FloatingActionButton MainActivityFab = findViewById(R.id.fab);
@@ -50,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 // On button press, allows the user to select one or more pictures from the gallery of their choice
                 Intent intent;
 
+                // Uses the Intent.Action_Open_Document functionality if the user has Android version 19 or above
                 if (Build.VERSION.SDK_INT >= 19){
                     intent = new Intent();
                     intent.setType("image/*");
@@ -58,21 +57,22 @@ public class MainActivity extends AppCompatActivity {
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
                 }
+
+                // Uses the deprecated Android functionality Action_Get_Content
                 else {
                     intent = new Intent(Intent.ACTION_GET_CONTENT);
                 }
-
                 startActivityForResult(intent, 1);
             }
         });
 
-        // Setting the ArrayAdapter categoriesAdapter to the ListView CategoriesListView
-        ListView CategoriesListview = findViewById(R.id.CategoriesListview);
-        CategoriesListview.setAdapter(categoriesAdapter);
+        // Setting the ArrayAdapter categoriesAdapter to the ListView categoriesListView
+        ListView categoriesListview = findViewById(R.id.CategoriesListview);
+        categoriesListview.setAdapter(categoriesAdapter);
 
         // Sets an OnItemClickListener to the ListView categoriesListView
         AdapterView.OnItemClickListener listViewListener = new ClickViewListener();
-        CategoriesListview.setOnItemClickListener(listViewListener);
+        categoriesListview.setOnItemClickListener(listViewListener);
     }
 
     private class ClickViewListener implements AdapterView.OnItemClickListener {
@@ -89,22 +89,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Implements the OnResultListener for the picture selection functionality
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        // Check which request we're responding to
+        // Implements the OnResultListener for the picture selection functionality
+        // Checks the request to respond to
         if (requestCode == 1 && resultCode == RESULT_OK) {
 
             // Passes the image selected by the user to the AddInformationActivity
+            // If the user selected more than one image, iterates through all images in the ClipData and adds them to an ArrayList of Uri's
             ArrayList<Uri> uris = new ArrayList<>();
             ClipData cd = data.getClipData();
+
+            // If the user selected one image
             if ( cd == null ) {
                 Uri uri = null;
                 uri = data.getData();
                 uris.add(uri);
             }
 
+            // If the user selected more than one image
             else {
                 for (int i = 0; i < cd.getItemCount(); i++) {
                     ClipData.Item item = cd.getItemAt(i);
@@ -115,15 +119,15 @@ public class MainActivity extends AppCompatActivity {
 
             if(Build.VERSION.SDK_INT >= 19) {
 
+                // Adds an intent flag if the Android version is 19 or higher
                 final int takeFlags = data.getFlags() & Intent.FLAG_GRANT_READ_URI_PERMISSION;
                 ContentResolver resolver = this.getContentResolver();
-
                 for (Uri uri : uris) {
                     resolver.takePersistableUriPermission(uri, takeFlags);
                 }
             }
 
-            // Log.d(TAG, String.format("This is the size of Uri's: %s", uris.size()));
+            // Adds the ArrayList of Uri's to an intent, and transfers the user to the next activity
             Intent secondintent = new Intent(MainActivity.this, AddInformationActivity.class);
             secondintent.putExtra("imageUri", uris);
             startActivity(secondintent);

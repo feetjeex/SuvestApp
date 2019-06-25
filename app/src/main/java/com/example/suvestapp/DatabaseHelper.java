@@ -5,11 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 
-import static android.support.constraint.Constraints.TAG;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -33,35 +31,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    // Implements the insert method
     public long insert(Product product) {
 
+        // Implements the insert method
         // Establishes a connection with the database
         // Assigns values to all the fields of the table in the database using data from the Product object
         getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("Category", product.getCategory());
-        contentValues.put("Type", product.getType());
+        contentValues.put("type", product.getType());
         contentValues.put("Retailer", product.getRetailer());
         contentValues.put("Price", product.getPrice());
         contentValues.put("ImageUri", product.getImageUri());
-        contentValues.put("URL", product.getURL());
+        contentValues.put("uRL", product.getURL());
         contentValues.put("Color", product.getColor());
 
         // Returns the database upon success
         return getWritableDatabase().insert("products", null, contentValues);
     }
 
-    // Method to select all rows from the database
     public Cursor selectAll(PreferenceHelper preferenceHelper) {
+
+        // Method to select all rows from the database
         SQLiteDatabase db;
         db = getWritableDatabase();
 
+        // Gets the relevant data from the preferenceHelper object as Strings
         String type = preferenceHelper.getType();
         String color = preferenceHelper.getColor();
         String format = preferenceHelper.getFormat();
         String retailer = preferenceHelper.getRetailer();
 
+        // Executes a rawQuery based on the values of the preferenceHelper object
         if (color.equals("none") && retailer.equals("none")) {
             switch (format) {
                 case "none":
@@ -82,6 +83,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         }
 
+        // Executes a rawQuery based on the values of the preferenceHelper object
         if (!color.equals("none") && retailer.equals("none")) {
             switch (format) {
                 case "none":
@@ -102,6 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         }
 
+        // Executes a rawQuery based on the values of the preferenceHelper object
         if (color.equals("none") && !retailer.equals("none")) {
             switch (format) {
                 case "none":
@@ -122,6 +125,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         }
 
+        // Executes a rawQuery based on the values of the preferenceHelper object
         if (!color.equals("none") && !retailer.equals("none")) {
             switch (format) {
                 case "none":
@@ -154,6 +158,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void onDelete (Integer Id) {
+
+        // Deletes the row specified by the user (using a longItemClick)
         SQLiteDatabase db;
         db = getWritableDatabase();
         db.execSQL("DELETE FROM products WHERE _id = '"+ Id +"'");
@@ -176,8 +182,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<String> stringDatabaseLookup (String type, String sort) {
 
+        // Method used for requesting and filling an ArrayList with elements
+        // This ArrayList then fills a popupMenu allowing the user to filter results in the TypeActivity
         ArrayList<String> stringArrayList = new ArrayList<>();
 
+        // Connects to the Database, and requests either all the Retailers or all the Colors available for a particular type of screenshot
         SQLiteDatabase db;
         db = getWritableDatabase();
         switch (sort) {
@@ -189,10 +198,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 break;
         }
 
+        // Adds all Strings in the cursor to the ArrayList
         while(cursor.moveToNext()) {
             stringArrayList.add(cursor.getString(cursor.getColumnIndexOrThrow(sort)));
         }
 
+        // Returns the ArrayList
         return stringArrayList;
     }
 }

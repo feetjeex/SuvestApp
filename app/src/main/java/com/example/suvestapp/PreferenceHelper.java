@@ -7,6 +7,8 @@ public class PreferenceHelper implements Serializable {
     private String type, color, retailer, format;
 
     public PreferenceHelper(String type, String color, String retailer, String format) {
+
+        // Constructor of the Class
         this.type = type;
         this.color = color;
         this.retailer = retailer;
@@ -14,11 +16,14 @@ public class PreferenceHelper implements Serializable {
     }
 
     public void preferenceHelperResetter () {
+
+        // Method used to reset all fields of a PreferenceHelper object
         this.color = "none";
         this.retailer = "none";
         this.format = "none";
     }
 
+    // Getters and Setters
     public String getType() {
         return type;
     }

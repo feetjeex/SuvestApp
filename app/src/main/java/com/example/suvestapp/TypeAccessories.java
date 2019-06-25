@@ -6,7 +6,7 @@ public enum TypeAccessories {
 
     private String typeaccessories;
 
-    TypeAccessories(String typeaccessories) {
+    TypeAccessories(String typeAccessories) {
         this.typeaccessories = typeaccessories;
     }
 

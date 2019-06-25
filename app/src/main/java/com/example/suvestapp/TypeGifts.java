@@ -2,7 +2,7 @@ package com.example.suvestapp;
 
 public enum TypeGifts {
 
-    TOILETRY("Toiletry"), MUG("Mug"), CANDLE("Candle");
+    TOILETRIES("Toiletries"), MUGS("Mugs"), CANDLES("Candles");
 
     private String typegifts;
 
