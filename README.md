@@ -9,8 +9,12 @@
 The main goal of this App is to increase the usability of screenshots of items taken by the shopping public. The App will process, organize and display screenshots of products, provided by the user.  
 
 
-<img src="https://github.com/feetjeex/SuvestApp/blob/master/doc/MainActivity1.png" width="364" height="604" /> <img src="https://github.com/feetjeex/SuvestApp/blob/master/doc/MainActivity1.png" width="364" height="604" />
-<img src="https://github.com/feetjeex/SuvestApp/blob/master/doc/MainActivity1.png" width="364" height="604" />
+<img src="https://github.com/feetjeex/SuvestApp/blob/master/doc/MainActivity1.png" width="364" height="604" /> <img src="https://github.com/feetjeex/SuvestApp/blob/master/doc/AddInformationActivity.png" width="364" height="604" />
+
+
+<img src="https://github.com/feetjeex/SuvestApp/blob/master/doc/CategoryActivity.png" width="364" height="604" /> <img src="https://github.com/feetjeex/SuvestApp/blob/master/doc/TypeActivity.png" width="364" height="604" />
+
+<img src="https://github.com/feetjeex/SuvestApp/blob/master/doc/DetailActivity.png" width="364" height="604" />
 
 #### Acknowledgements
 
