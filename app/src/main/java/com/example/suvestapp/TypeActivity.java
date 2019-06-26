@@ -254,13 +254,13 @@ public class TypeActivity extends AppCompatActivity {
 
     /** gridItemClickListener
      *
-     * On click, extracts
+     * This method firsts extracts the necessary information from the screenshot the user selected. This information
+     * is then stored in an arrayList. The user is then transferred to the DetailActivity, along with the arrayList.
      */
     private class gridItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            // Implements the gridItemClickListener functionality
             GridView gridView = findViewById(R.id.gridview);
 
             // Stores the users' choice in an SQLiteCursor
