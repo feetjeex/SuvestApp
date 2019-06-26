@@ -3,15 +3,19 @@ package com.example.suvestapp;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
+/** CategoryActivity
+ *
+ * Class which displays the Types of items the user can select from, dependent on the choice
+ * of Category the user made in MainActivity. Once the user has chosen a Type, redirects the user
+ * to the next activity.
+ */
 public class CategoryActivity extends AppCompatActivity {
 
     @Override
@@ -35,10 +39,15 @@ public class CategoryActivity extends AppCompatActivity {
         typesListview.setAdapter(typesAdapter);
 
         // Sets an OnItemClickListener to the ListView typesListview
-        AdapterView.OnItemClickListener listViewListener = new ClickViewListener();
+        AdapterView.OnItemClickListener listViewListener = new clickViewListener();
         typesListview.setOnItemClickListener(listViewListener);
     }
 
+    /** typeLoader
+     *
+     * A method which adds all the constants from the relevant Enum (Gifts, or Shoes for example) to an ArrayList,
+     * which is then used by an adapter to show these types in a listView.
+     */
     public ArrayList<String> typeLoader(String choice, ArrayList<String> types) {
 
         // Fills the ArrayList types with elements, depending on the choice of the user in MainActivity
@@ -54,7 +63,6 @@ public class CategoryActivity extends AppCompatActivity {
                 break;
 
             case "Shoes":
-                // Iterates through the shoes enum to fill the ArrayList types with the proper elements
                 ArrayList<String> shoesObjects = new ArrayList<>();
                 for (TypeShoes type: TypeShoes.values()) {
                     shoesObjects.add(type.getTypeshoes());
@@ -63,8 +71,6 @@ public class CategoryActivity extends AppCompatActivity {
                 break;
 
             case "Accessories":
-                // Iterates through the accessories enum to fill the ArrayList types with the proper elements
-                Log.d("Test", "typeLoader: ");
                 ArrayList<String> accessoriesObjects = new ArrayList<>();
                 for (TypeAccessories type: TypeAccessories.values()) {
                     accessoriesObjects.add(type.getTypeaccessories());
@@ -73,7 +79,6 @@ public class CategoryActivity extends AppCompatActivity {
                 break;
 
             case "Gifts":
-                // Iterates through the gifts enum to fill the ArrayList types with the proper elements
                 ArrayList<String> giftsObjects = new ArrayList<>();
                 for (TypeGifts type: TypeGifts.values()) {
                     giftsObjects.add(type.getTypegifts());
@@ -82,7 +87,6 @@ public class CategoryActivity extends AppCompatActivity {
                 break;
 
             case "Sport":
-                // Iterates through the sports enum to fill the ArrayList types with the proper elements
                 ArrayList<String> sportsObjects = new ArrayList<>();
                 for (TypeSport type: TypeSport.values()) {
                     sportsObjects.add(type.getTypesport());
@@ -91,7 +95,6 @@ public class CategoryActivity extends AppCompatActivity {
                 break;
 
             case "Wellness":
-                // Iterates through the wellness enum to fill the ArrayList types with the proper elements
                 ArrayList<String> wellnessObjects = new ArrayList<>();
                 for (TypeWellness type: TypeWellness.values()) {
                     wellnessObjects.add(type.getTypewellness());
@@ -100,7 +103,6 @@ public class CategoryActivity extends AppCompatActivity {
                 break;
 
             case "Interior":
-                // Iterates through the interior enum to fill the ArrayList types with the proper elements
                 ArrayList<String> interiorObjects = new ArrayList<>();
                 for (TypeInterior type: TypeInterior.values()) {
                     interiorObjects.add(type.getTypeinterior());
@@ -113,12 +115,15 @@ public class CategoryActivity extends AppCompatActivity {
         return types;
     }
 
-    private class ClickViewListener implements AdapterView.OnItemClickListener {
+    /** clickViewListener
+     *
+     * Once the user has chosen the Type of screenshot to view, transfers the user to the next activity.
+     */
+    private class clickViewListener implements AdapterView.OnItemClickListener {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            // If the user clicks on one of the categories in the ListView
             // Saves the users choice as a String and transfers the user to the next activity using Intent
             String clickedCategory = (String) parent.getItemAtPosition(position);
             Intent intent = new Intent(CategoryActivity.this, TypeActivity.class);

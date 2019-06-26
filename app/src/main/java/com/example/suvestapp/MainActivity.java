@@ -16,10 +16,19 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
+/** MainActivity
+ *
+ * This Class allows the user to choose between the different Categories provided in the Category Enum. After making
+ * a choice, the user is redirected to the next activity (TypeActivity). The user can also add new screenshots to the
+ * application, using the floating action button.
+ */
 public class MainActivity extends AppCompatActivity {
 
+    /** onCreate
+     *
+     * Sets the UI elements, and populates the listView using an ArrayAdapter. Also implements the floating action button.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,16 +80,19 @@ public class MainActivity extends AppCompatActivity {
         categoriesListview.setAdapter(categoriesAdapter);
 
         // Sets an OnItemClickListener to the ListView categoriesListView
-        AdapterView.OnItemClickListener listViewListener = new ClickViewListener();
+        AdapterView.OnItemClickListener listViewListener = new clickViewListener();
         categoriesListview.setOnItemClickListener(listViewListener);
     }
 
-    private class ClickViewListener implements AdapterView.OnItemClickListener {
+    /** clickViewListener
+     *
+     * Once the user selects a Category, transfers them to the TypeActivity.
+     */
+    private class clickViewListener implements AdapterView.OnItemClickListener {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            // If the user clicks on one of the categories in the ListView
             // Saves the users choice as a String and transfers the user to the next activity using Intent
             String clickedCategory = (String) parent.getItemAtPosition(position);
             Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
@@ -89,10 +101,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /** clickViewListener
+     *
+     * Implements the OnResultListener for the picture selection functionality. Depending on whether or not
+     * the user has selected multiple images, adds flags to these images (Uri's) and stores these in an ArrayList of Uri's.
+     * The user is then transferred to the AddInformationActivity. The ArrayList is also transferred to the next Activity.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        // Implements the OnResultListener for the picture selection functionality
         // Checks the request to respond to
         if (requestCode == 1 && resultCode == RESULT_OK) {
 

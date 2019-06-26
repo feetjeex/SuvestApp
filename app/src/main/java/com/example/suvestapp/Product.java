@@ -2,6 +2,12 @@ package com.example.suvestapp;
 
 import java.io.Serializable;
 
+/** Product
+ *
+ * A Class which is used to represent a Product object. This object contains the information of a certain
+ * screenshot (Such as the URL and the Color).
+ */
+
 public class Product implements Serializable {
 
     private int id;
@@ -9,8 +15,6 @@ public class Product implements Serializable {
     private float price;
 
     public Product() {
-
-        // Constructor of the Class
     }
 
     // Getters and Setters

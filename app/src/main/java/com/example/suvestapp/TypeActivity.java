@@ -18,6 +18,16 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+/** TypeActivity
+ *
+ * Class used to display screenshots to the user, depending on the Category and Type the user requested.
+ * Users are also able to filter the results, based on their Color and Retailer. The order in which the results are displayed
+ * can also be changed, such as from the lowest price to the highest or the last added first.
+ *
+ * Each time a change is made to the filter, the PreferenceHelper object is updated, and a new request for screenshots is sent to
+ * the database along with the updated PreferenceHelper.
+ */
+
 public class TypeActivity extends AppCompatActivity {
 
     // Initializes the global variables
@@ -30,6 +40,11 @@ public class TypeActivity extends AppCompatActivity {
     // Creates a new PreferenceHelper object
     PreferenceHelper preferenceHelper = new PreferenceHelper("none", "none", "none", "none");
 
+    /** onCreate
+     *
+     * Sets the UI elements, and loads the screenshots into the image by calling the databaseInitializer method passing the
+     * PreferenceHelper object as a parameter.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,14 +64,21 @@ public class TypeActivity extends AppCompatActivity {
         databaseInitializer(preferenceHelper);
     }
 
+    /** buttonColor
+     *
+     * A popupMenu which allows the user to filter the results on the basis of their Color. First, a database request is sent
+     * requesting the colors available of one particular type of item. Subsequently removes duplicate entries using the removeDuplicates
+     * method. These Colors are then displayed in the popupMenu.
+     *
+     * Once the user selects a Color, updates the preferenceHelper object and then refreshes the gridView by calling the
+     * databaseInitializer functionality again, passing the updated PreferenceHelper object as a parameter.
+     */
     public void buttonColor(View view) {
 
-        // Allows the user to filter on the color of the products
         //Creating the instance of PopupMenu
         PopupMenu popupColor = new PopupMenu(TypeActivity.this, view);
 
-        //Inflating the Popup using xml file
-        // Requests the colors available of one particular type of clothing and removes duplicate entries
+        //Inflating the Popup
         db = DatabaseHelper.getInstance(this);
         ArrayList<String> stringArrayList = removeDuplicates(db.stringDatabaseLookup(choice, "Color"));
 
@@ -80,6 +102,10 @@ public class TypeActivity extends AppCompatActivity {
         popupColor.show();
     }
 
+    /** removeDuplicates
+     *
+     * Removes any duplicates from the ArrayList of Strings passed to it.
+     */
     public  ArrayList<String> removeDuplicates(ArrayList<String> list)
     {
 
@@ -99,6 +125,15 @@ public class TypeActivity extends AppCompatActivity {
         return list;
     }
 
+    /** buttonRetailer
+     *
+     * A popupMenu which allows the user to filter the results on the basis of their Retailer. First, a database request is sent
+     * requesting the retailers available of one particular type of item. Subsequently removes duplicate entries using the removeDuplicates
+     * method. These Retailers are then displayed in the popupMenu.
+     *
+     * Once the user selects a Retailer, updates the preferenceHelper object and then refreshes the gridView by calling the
+     * databaseInitializer functionality again, passing the updated PreferenceHelper object as a parameter.
+     */
     public void buttonRetailer (View view) {
 
         // Allows the user to filter on the retailer of the products
@@ -130,6 +165,14 @@ public class TypeActivity extends AppCompatActivity {
         popupRetailer.show();
     }
 
+    /** buttonSort
+     *
+     * A popupMenu which allows the user to sort the results on the basis of four choices (Price high to low, low to high, data added last
+     * added first and first added first).
+     *
+     * Once the user makes a choice, updates the preferenceHelper object and then refreshes the gridView by calling the
+     * databaseInitializer functionality again, passing the updated PreferenceHelper object as a parameter.
+     */
     public void buttonSort(View view) {
 
         //Creating the instance of PopupMenu
@@ -153,17 +196,24 @@ public class TypeActivity extends AppCompatActivity {
         popupSort.show();
     }
 
+    /** buttonReset
+     *
+     * On click, resets the preferenceHelper object using preferenceHelperResetter method and then refreshes the listView by calling the
+     * databaseInitializer functionality again, passing the updated PreferenceHelper object as a parameter.
+     */
     public void buttonReset (View view) {
 
-        // When pressed, resets all preferences except for the type, in the current preferenceHelper object
-        // Reloads the GridView using the updated preferences
         preferenceHelper.preferenceHelperResetter();
         databaseInitializer(preferenceHelper);
     }
 
+    /** databaseInitializer
+     *
+     * Method used to fill the GridView with screenshots, using the PreferenceHelper object passed to it to filter
+     * which screenshots are shown.
+     */
     public void databaseInitializer (PreferenceHelper preferenceHelper) {
 
-        // Method used to fill the GridView with screenshots, using the PreferenceHelper object to filter which screenshots are shown
         // Declaration and initialization of a db object, fetching the table dependent on the choice of the user
         db = DatabaseHelper.getInstance(this);
         cursor = db.selectAll(preferenceHelper);
@@ -180,11 +230,16 @@ public class TypeActivity extends AppCompatActivity {
         }
     }
 
+    /** gridItemLongClickListener
+     *
+     * On long click, removes the current screenshot from the SQLite Database using the deleter method. After removing
+     * the entry, calls the databaseInitializer to reset the gridView.
+     */
     private class gridItemLongClickListener implements AdapterView.OnItemLongClickListener {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-            // Deletes a particular entry on a longItemPress by the user
+            // Extracts the Id of the screenshot to be removed
             SQLiteCursor clickedObject = (SQLiteCursor) parent.getItemAtPosition(position);
             Integer Id = clickedObject.getInt(0);
 
@@ -197,6 +252,10 @@ public class TypeActivity extends AppCompatActivity {
         }
     }
 
+    /** gridItemClickListener
+     *
+     * On click, extracts
+     */
     private class gridItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

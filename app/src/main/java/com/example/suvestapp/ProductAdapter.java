@@ -8,6 +8,11 @@ import android.widget.ImageView;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
+/** ProductAdapter
+ *
+ * The Adapter used to display the Screenshots along with their retailer in the TypeActivity.
+ */
+
 public class ProductAdapter extends ResourceCursorAdapter {
 
     public ProductAdapter(Context context, Cursor cursor) {

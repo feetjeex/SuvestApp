@@ -17,11 +17,15 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-/***/
+/** AddInformationActivity
+ *
+ * A Class which allows the user to add screenshots to the application. Using the OCRHelper Class, as much information as possible
+ * is extracted from the image, and filled in for the user. The user can then fill in the remaining fields, and confirm the addition of
+ * the screenshot to the app.
+ */
 
 public class AddInformationActivity extends AppCompatActivity {
 
-    /***/
     // Initializes a new Product object
     Product product;
 
@@ -37,6 +41,13 @@ public class AddInformationActivity extends AppCompatActivity {
     EditText InputColor;
     Spinner CategorySpinner;
     Spinner TypeSpinner;
+
+    /** onCreate
+     *
+     * Used to initialize the UI elements, to get the imageUri from the previous activity, and calls the OCRHelper Class to
+     * perform OCRFunctionality on the selected screenshot. Also converts the selected screenshot (represented by an URI)
+     * into a bitmap, so it can be used in the OCRHelper Class in order to attempt to extract information from it.
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +150,12 @@ public class AddInformationActivity extends AppCompatActivity {
         }
     }
 
+    /** typeLoader
+     *
+     * A method which adds all the constants from the relevant Enum (Gifts, or Shoes for example) to an ArrayList,
+     * which is then used by an adapter to show these types in a spinner.
+     */
+
     public void typeLoader(String choice) {
 
         // Fills the ArrayList types with elements, depending on the choice of the user in MainActivity
@@ -186,6 +203,11 @@ public class AddInformationActivity extends AppCompatActivity {
         TypeSpinner.setAdapter(typeAdapter);
     }
 
+    /** MyClickListener
+     *
+     * OnClick, will add the screenshot to the SQLite database, extracting all available information from
+     * the user inputs.
+     */
     private class MyClickListener implements View.OnClickListener {
 
         @Override
@@ -217,13 +239,20 @@ public class AddInformationActivity extends AppCompatActivity {
         }
     }
 
+    /** addProduct
+     *
+     * Method which inserts the selected Product in the database.
+     */
     public void addProduct () {
 
-        // Method which inserts the selected Product in the database
         DatabaseHelper databaseHelper = DatabaseHelper.getInstance(this);
         databaseHelper.insert(product);
     }
 
+    /** buttonRemove
+     *
+     * Brings the user back to the main menu, if they decide not to add the screenshot to the database.
+     */
     public void buttonRemove(View view) {
 
         // Brings the user back to the main menu

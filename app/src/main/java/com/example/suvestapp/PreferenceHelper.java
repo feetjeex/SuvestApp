@@ -2,19 +2,32 @@ package com.example.suvestapp;
 
 import java.io.Serializable;
 
+/** PreferenceHelper
+ *
+ * A Class which is used to store preferences about which screenshots should be displayed (such as the retailer
+ * or the color) to the user.
+ */
+
 public class PreferenceHelper implements Serializable {
 
     private String type, color, retailer, format;
 
+    /** PreferenceHelper
+     *
+     * Constructor of the Class.
+     */
     public PreferenceHelper(String type, String color, String retailer, String format) {
 
-        // Constructor of the Class
         this.type = type;
         this.color = color;
         this.retailer = retailer;
         this.format = format;
     }
 
+    /** preferenceHelperResetter
+     *
+     * Resets all fields except for the type.
+     */
     public void preferenceHelperResetter () {
 
         // Method used to reset all fields of a PreferenceHelper object

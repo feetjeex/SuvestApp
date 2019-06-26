@@ -12,6 +12,13 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/** DetailActivity
+ *
+ * Allows the user to view a particular screenshot with more detail. Within this view, the user can then buy the product
+ * (which will redirect them to the URL of the screenshot, if the user provided this information in the AddInformationActivity) and
+ * to remove the screenshot.
+ */
+
 public class DetailActivity extends AppCompatActivity {
 
     // Initializes the global variables
@@ -20,6 +27,10 @@ public class DetailActivity extends AppCompatActivity {
     Integer idNumber;
     String type;
 
+    /** onCreate
+     *
+     * Sets the UI elements, and extracts information from the intent to fill these elements.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +53,6 @@ public class DetailActivity extends AppCompatActivity {
 
         // Initializing the UI elements
         TextView detailPrice = findViewById(R.id.detailPrice);
-        TextView detailDate = findViewById(R.id.detailDate);
         TextView detailColor = findViewById(R.id.detailColor);
         TextView detailURL = findViewById(R.id.detailURL);
         TextView detailType = findViewById(R.id.detailType);
@@ -53,7 +63,6 @@ public class DetailActivity extends AppCompatActivity {
         // Filling the UI elements
         detailPrice.setText(price);
         detailImage.setImageURI(Uri.parse(clickedObjectArrayList.get(3)));
-        //detailDate.setText(date);
         detailColor.setText(color);
         detailType.setText(typeRetailer);
 
@@ -66,6 +75,11 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
+    /** buyClicked
+     *
+     * If the user presses the buy button, redirects them to the URL provided by the user. If no URL is provided,
+     * makes a toast.
+     */
     public void buyClicked (View view) {
 
         // If the user provided an URL
@@ -74,19 +88,24 @@ public class DetailActivity extends AppCompatActivity {
             startActivity(viewIntent);
         }
 
-        // Notify the user that no URL was provided using a toast
+        // Notify the user that no URL was provided
         else {
-            Toast.makeText(this, "No uRL provided!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "No URL provided!", Toast.LENGTH_LONG).show();
         }
     }
 
+    /** removeClicked
+     *
+     * If the user presses the remove button, the entry is removed from the database using the deleter method in
+     * the DatabaseHelper Class. The user is then redirected to the TypeActivity.
+     */
     public void removeClicked (View view) {
 
         // Declaration and initialization of a db object
         db = DatabaseHelper.getInstance(this);
 
         // Deletes the row which contains the screenshot the user removed
-        db.onDelete(idNumber);
+        db.deleter(idNumber);
 
         // Redirects the user back to the TypeActivity
         Intent intent = new Intent(DetailActivity.this, TypeActivity.class);

@@ -16,6 +16,15 @@ import com.google.android.gms.vision.text.TextRecognizer;
 import java.util.Arrays;
 import java.util.List;
 
+/** OCRHelper
+ *
+ * This Class performs the Optical Character Recognition (OCR) functionality on the screenshot provided.
+ * The Class will attempt to extract as much text from the image (represented by a bitmap) as possible. This text
+ * will then be split into keywords, which will be compared with the constants in the "Type" Enums (Such as TypeClothing)
+ * and the Retailer and Color Enums. If matches are found, it sets the relevant field in the Product object to this
+ * value.
+ */
+
 public class OCRHelper extends AppCompatActivity {
 
     // Initializes the global variables
@@ -30,6 +39,11 @@ public class OCRHelper extends AppCompatActivity {
         ocrHelperFunctionality(textBlock);
     }
 
+    /** ocrHelperFunctionality
+     *
+     * Iterates trough all the TextBlocks in the SparseArray textBlock. It will first split up each TextBlock in to one word
+     * Strings. It will then pass these Strings to the five Checker methods (Price, Retailer, Category, Type and Color).
+     */
     private void ocrHelperFunctionality(SparseArray<TextBlock> textBlock) {
 
         // Loops trough all the TextBlocks in the SparseArray<TextBlock> textBlock
@@ -55,6 +69,11 @@ public class OCRHelper extends AppCompatActivity {
         }
     }
 
+    /** checkerPreparer
+     *
+     * Used to split the contents of a String from a TextBlock on a whitespace character, into one word
+     * Strings. Stores these in a List and returns this list.
+     */
     private List<String> checkerPreparer(String text) {
 
         // This method splits the String into smaller substrings and stores them into a List of Strings
@@ -63,6 +82,12 @@ public class OCRHelper extends AppCompatActivity {
         return al;
     }
 
+    /** priceChecker
+     *
+     * Check the Strings provided for a euro, dollar or pound character. If it finds one, adds the remainder of the String
+     * (after the currency character) to a character array. It then converts this array into a String, and tries to convert
+     * this String into a float. If it succeeds, sets the price of the product object to this value.
+     */
     private void priceChecker(List<String> text) {
 
         // Checks the given string for a '€', '$' or '£' character
@@ -70,7 +95,7 @@ public class OCRHelper extends AppCompatActivity {
             for (int i = 0; i < s.length(); i++) {
                 char c = s.charAt(i);
 
-                // If the character at the i'th position is a '€' sign
+                // If the character at the i'th position is a currency sign
                 if (c == '€' || c == '$' || c == '£') {
                     int index = 0;
                     char[] array = new char[(s.length() - i)];
@@ -99,14 +124,17 @@ public class OCRHelper extends AppCompatActivity {
         }
     }
 
+    /** retailChecker
+     *
+     * Checks the Strings provided for a match with one of the constants in the Retailer Enum.
+     * If a match is found, sets the the relevant field of the product object to this value.
+     */
     private void retailerChecker(List<String> text) {
 
-        // Checks if the given list of Strings contains the name of a retailer
-        // Iterates through all Strings in the List and compares them to the constants in the Retailer Enum
+        // Iterates through all Strings in the List
         for(String s: text) {
             for (Retailer retailer : Retailer.values()) {
 
-                // If a match is found, sets the the relevant field of the product object to this value
                 if (retailer.name().equals(s.toUpperCase())) {
                     product.setRetailer(retailer.getRetailer());
                 }
@@ -114,15 +142,19 @@ public class OCRHelper extends AppCompatActivity {
         }
     }
 
+    /** categoryChecker
+     *
+     * Checks the Strings provided for a match with one of the constants in the Category Enum.
+     * If a match is found, sets the the relevant field of the product object to this value.
+     */
     private void categoryChecker(List<String> text) {
 
-        // Checks if the given list of Strings contains the name of a category of product
+        // Iterates trough all the Strings in the List of Strings text
         for(String s: text) {
 
             // Iterates trough all the constants in the Category Enum
             for (Category category : Category.values()) {
 
-                // If a match is found, sets the the relevant field of the product object to this value
                 if (category.name().equals(s.toUpperCase())) {
                     product.setCategory(category.getCategory());
                 }
@@ -130,6 +162,12 @@ public class OCRHelper extends AppCompatActivity {
         }
     }
 
+    /** typeChecker
+     *
+     * Checks the Strings provided for a match with one of the constants in the Type Enum. If the categoryChecker method has
+     * already found a Category, uses this to determine with which Enum the List of Strings is compared.
+     * If a match is found, sets the the relevant field of the product object to this value.
+     */
     private void typeChecker(List<String> text) {
 
         // Checks if the given list of Strings contains the name of a type of product
@@ -209,6 +247,11 @@ public class OCRHelper extends AppCompatActivity {
         }
     }
 
+    /** colorChecker
+     *
+     * Checks the Strings provided for a match with one of the constants in the Color Enum.
+     * If a match is found, sets the the relevant field of the product object to this value.
+     */
     private void colorChecker(List<String> text) {
 
         // Checks if the given list of Strings contains a color
@@ -225,6 +268,11 @@ public class OCRHelper extends AppCompatActivity {
         }
     }
 
+    /** OCRFunctionality
+     *
+     * Performs the actual OCR Functionality. After checking if there is enough storage room on the device,
+     * fills a SparseArray of TextBlocks with the text it encounters in the image, represented by TextBlocks.
+     */
     public SparseArray<TextBlock> OCRFunctionality(Bitmap bitmap) {
 
         // Initializes a SparseArray to store the TextBlocks
