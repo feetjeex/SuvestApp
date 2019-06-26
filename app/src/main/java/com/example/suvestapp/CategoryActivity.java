@@ -3,6 +3,7 @@ package com.example.suvestapp;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -63,6 +64,7 @@ public class CategoryActivity extends AppCompatActivity {
 
             case "Accessories":
                 // Iterates through the accessories enum to fill the ArrayList types with the proper elements
+                Log.d("Test", "typeLoader: ");
                 ArrayList<String> accessoriesObjects = new ArrayList<>();
                 for (TypeAccessories type: TypeAccessories.values()) {
                     accessoriesObjects.add(type.getTypeaccessories());

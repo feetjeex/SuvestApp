@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> categoriesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, CategoryObjects);
 
         // Initializing and assigning the FloatingActionButton
-        FloatingActionButton MainActivityFab = findViewById(R.id.fab);
+        FloatingActionButton MainActivityFab = findViewById(R.id.floatingActionButton);
 
         // Setting the toolbar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);

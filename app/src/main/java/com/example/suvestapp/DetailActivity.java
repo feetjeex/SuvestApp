@@ -53,7 +53,7 @@ public class DetailActivity extends AppCompatActivity {
         // Filling the UI elements
         detailPrice.setText(price);
         detailImage.setImageURI(Uri.parse(clickedObjectArrayList.get(3)));
-        detailDate.setText(date);
+        //detailDate.setText(date);
         detailColor.setText(color);
         detailType.setText(typeRetailer);
 

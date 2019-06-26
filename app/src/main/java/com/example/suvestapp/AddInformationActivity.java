@@ -17,8 +17,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/***/
+
 public class AddInformationActivity extends AppCompatActivity {
 
+    /***/
     // Initializes a new Product object
     Product product;
 
