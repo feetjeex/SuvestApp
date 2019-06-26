@@ -23,9 +23,8 @@ If the user presses one of the images, they will be taken to the Detail page. He
 
 #### Acknowledgements
 
-They will be able to select the type of product they are looking for (a sweater, for example). They will be presented with a scrollable list of all the screenshots of this type of product currently stored in the App. They will be able to select the item they are looking for (A sweater by Asos, for example). They will then be able to view the screenshot, along with some other relevant fields (such as the name of the retailer, the price and the date the screenshot was made, for example). A button to redirect the user to the relevant page in the webshop will also be present, should they decide to buy the product.
-
-
+This application uses the Text Recognition API, created by Google (https://developers.google.com/vision/android/text-overview).
+Used under the Creative Commons Attribution License 4.0. The API was not modified by the Author.
 
 Copyright 2019 Felix Mooij
 
