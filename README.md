@@ -1,4 +1,5 @@
-## Suvest
+## SuvestApp
+
 *An apparel screenshot organizer by Felix Mooij*
 
 **Aiming to increase the usability of screenshots in a more crowded online retail enviroment**
@@ -8,7 +9,7 @@
 The main goal of this App is to increase the usability of screenshots of items taken by the shopping public. The App will process, organize and display screenshots of products, provided by the user.  
 
 
-<img src="https://github.com/feetjeex/SuvestApp/blob/master/doc/MainActivity.png" width="750" height="600" />
+<img src="https://github.com/feetjeex/SuvestApp/blob/master/doc/MainActivity.png" width="364" height="604" />
 
 #### Acknowledgements
 
