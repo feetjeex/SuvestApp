@@ -10,6 +10,7 @@ The main goal of this App is to increase the usability of screenshots of items t
 
 
 <img src="https://github.com/feetjeex/SuvestApp/blob/master/doc/MainActivity1.png" width="364" height="604" />
+<img src="https://github.com/feetjeex/SuvestApp/blob/master/doc/MainActivity1.png" width="364" height="604" />
 
 #### Acknowledgements
 
