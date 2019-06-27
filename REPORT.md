@@ -6,5 +6,5 @@ An app used to organize, sort and display screenshots of items that the user pro
 
 ### Design
 
-<img src="https://github.com/feetjeex/SuvestApp/blob/master/doc/DesignFinalPaint.png" width="800" height="400" />
+<img src="https://github.com/feetjeex/SuvestApp/blob/master/doc/DesignFinalPaint.png" width="800" height="500" />
 
