@@ -32,15 +32,19 @@ AddInformationActivity: If the user presses the floating action button in the Ma
 
 #### Helpers
 
-DatabaseHelper:
+DatabaseHelper: Helper class which is used to insert, delete and extract entries to and from a SQLite Database, dependent on the choices of the user. Uses a ContentValues object to extract data from the Product object provided by the AddInformationActivity. On request from TypeActivity, sends a query to the database which returns specific rows of the database. The specific rawQuery is determined by a PreferenceHelper object, which contains information on which screenshots the user would like to view. The rows returned by the rawQuery are stored and returned in the form of a Cursor object. Also contains methods to delete rows from the database on request. 
 
-OCRHelper:
+OCRHelper: Class which performs the Optical Character Recognition (OCR) functionality on the image provided by the user. The OCR functionality is provied by the Google Text Recognition API. The image provided selected by the user if first converted to a bitmap. The OCR functionality then extracts all the text from the image which is stored in a SparseArray of TextBlock object. For each TextBlock in the SparseArray, the contents (Strings) are split into one word Strings. These Strings are then examined for a number of keywords, such as colors or prices. These keywords are contained in the Enums described below. If any relevant information is found, a newly initialized Product object is updated. After there are no more unexamined TextBlocks left, the updated Product object is returned to the AddInformationActivity.
 
-ProductAdapter:
+ProductAdapter: An adapter, which uses a Cursor object containing rows from the SQLite database, provided by the DatabaseHelper. For each row in the Cursor, the Adapter fills an grid_product xml file. These are then used to populate the TypeActivity gridView.
 
 #### Classes
 
-Product:
+Product: A class which represent a screenshot. Has a number of fields (such as the color, and the retailer) which can be filled in by the OCRHelper or the user in AddInformationActivity. 
 
-PreferenceHelper
+PreferenceHelper: A class which contains the preferences of screenshots to be viewed by the user. When initialized by the TypeActivity class, only the type of screenshot is specified (such as sweaters, or jeans, for example). The PreferenceHelper is used by the DatabaseHelper to determine which rows to request from the SQLite Database. Contains a method to reset all fields except for the type, when the user presses the 'Reset' button in the TypeActivity.
+
+##### Enums
+
+Category, Retailer, Color, TypeAccessoires, TypeClothing, TypeGifts, TypeInterior, TypeShoes, TypeSport, TypeWellness: Enums which are used to categorize screenshots, and which are used by the OCRHelper to check for relevant information contained in the text in the screenshot. The OCRHelper will iterate over the constants in these Enums (Such as the retailers contained in the Retailer Enum) in order to look for any matches. 
 
