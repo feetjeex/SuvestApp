@@ -1,12 +1,14 @@
-## SuvestApp
+# SuvestApp
 
 <img src="https://github.com/feetjeex/SuvestApp/blob/master/doc/TypeActivity.png" width="364" height="604" />
 
 An app used to organize, sort and display screenshots of items that the user provided.
 
-### Design
+## Design
 
 <img src="https://github.com/feetjeex/SuvestApp/blob/master/doc/DesignFinalPaint.png" width="800" height="500" />
+
+### High Level Overview
 
 The flow of the application is as follows: A user first adds a screenshot using the floating action button in the MainActivity. They are transferred, using an intent.ACTION_OPEN_DOCUMENT to their device's gallery. There, they can select a screenshot. At this point, the screenshot will be processed by the OCRHelper class. The OCRHelper will try to extract as much information as possible from the image provided. The user will then be transferred to the AddInformationActivity. There, the OCRHelper class will already have filled in any relevant fields that it succeeded in recognizing in the image. The user adds any information they want, and presses 'Next'. The image is then added to the SQLiteDatabase by the DatabaseHelper class.
 
