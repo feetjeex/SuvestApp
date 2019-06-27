@@ -48,3 +48,22 @@ PreferenceHelper: A class which contains the preferences of screenshots to be vi
 
 Category, Retailer, Color, TypeAccessoires, TypeClothing, TypeGifts, TypeInterior, TypeShoes, TypeSport, TypeWellness: Enums which are used to categorize screenshots, and which are used by the OCRHelper to check for relevant information contained in the text in the screenshot. The OCRHelper will iterate over the constants in these Enums (Such as the retailers contained in the Retailer Enum) in order to look for any matches. 
 
+
+## Challenges
+
+### Biggest Challenge 
+
+I expected the biggest challenge during development to be the OCR Functionality. However, this was actually fairly easy in the end. In the proposal, I had mentioned using the Tesseract API to perform this functionality. After reading how difficult it was to actually implement this in Android, I decided to look a bit further. After a while, I encountered the Google Text Recognition API. This API was already optimized for use in Android, and was quite easy to implement into my application. 
+
+However, the biggest challenge by far turned out to be implementing the mulit-select from the gallery. After Android update 19 (KitKat 4.4) Android uses a new Storage Acces Framework. The intent.ACTION_GET_CONTENT I was using did allow me to select and copy multiple images (represented by Uri's). However, I discovered that I could only use / acces these Uri's once. If I wanted to display them after adding them to the app, I didn't have the proper permissions. After looking around, I found out this was because of the new framework mentioned earlier. Using a new intent.ACTION_OPEN_DOCUMENT I managed to add a flag to the Uri which would give me permanent acces rights. However, I could only add one image at a time using this new intent. In the end, the multi-select functionality is (as far as I know) just not supported using with this type of intent. Eventually, I chose to continue with this less user-friendly but less error prone method of adding images to the app.
+
+### Other changes
+
+In the end, I didn't implement the AddTypeFromGallery. The idea was that a user could add a screenshot from the MainActivity, and also from the TypeActivity (where they would already have made choices regarding the category and type of screenshot they would like to add). The difference for the user would be that in the second case, they did not have to fill in the category and the type in the AddInformationActivity screen. These are both selected from drop down spinners, so in my opinion, the time savings would have been quite small had I implemented this extra Activity. Furthermore, I expect users to usually add screenshots from the MainActivity anyway, since they would usually take a screenshot, then open the SuvestApp and be in the MainActivity. They would then probably just press the floating action button instead of first navigating to the proper category and type of screenshot, to add it from there, since that would take more time than just selecting the right type and category from the spinners.
+
+Similarly, I didn't have to add the AddFromGalleryHelper / AddFromGalleryTypeHelper because it turned out that the intent.ACTION_GET_CONTENT / intent.ACTION_OPEN_DOCUMENT already redirects the user to a 'file explorer' type of activity, where the users can browse through their images. There was no added benefit in creating one of these type of activities myself.
+
+I also had no need to create an ArrayList containg the different products. Using an ArrayList would not have been practical, since the contents would be lost on closing the app. The SQLite database I chose to use persists through reboots and closing the app. SQLite also offers built-in timestamp functionality. Using a DatabaseHelper which can send different rawQuery's to the SQLite database allowed me great flexibility in which screenshots were actually shown on the screen in the TypeActivity. 
+
+
+
