@@ -65,5 +65,8 @@ Similarly, I didn't have to add the AddFromGalleryHelper / AddFromGalleryTypeHel
 
 I also had no need to create an ArrayList containg the different products. Using an ArrayList would not have been practical, since the contents would be lost on closing the app. The SQLite database I chose to use persists through reboots and closing the app. SQLite also offers built-in timestamp functionality. Using a DatabaseHelper which can send different rawQuery's to the SQLite database allowed me great flexibility in which screenshots were actually shown on the screen in the TypeActivity. 
 
+I did add a PreferenceHelper object which was not present in the original Proposal. I wanted the user to be able to sort and add criteria to the screenshots displayed in the TypeActivity. In line with object oriented style of programming I decided to use a new Object class for this. The PreferenceHelper itself contains getters, setters and a method to reset all fields except for the type. This works very smoothly in combination with the buttons in the TypeActivity. After pressing the back button (from TypeActivity to CategoryActivity) and going back to the TypeActivity, the PreferenceHelper object is automatically re-initialized such that all screenshots of the type chosen by the user are shown (without any additional criteria). 
+
+Another addition was a DatabaseHelper class. I chose to implement this helper class, because it provides a level of seperation between the Activities and the SQLite database. It is very convenient to just redirect all query's to the database through one class, such that they will always be consistent. 
 
 
