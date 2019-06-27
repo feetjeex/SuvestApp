@@ -44,7 +44,7 @@ If the user wants to filter or sort the images in the TypeActivity, they can pre
 
 **PreferenceHelper**: A class which contains the preferences of screenshots to be viewed by the user. When initialized by the TypeActivity class, only the type of screenshot is specified (such as sweaters, or jeans, for example). The PreferenceHelper is used by the DatabaseHelper to determine which rows to request from the SQLite Database. Contains a method to reset all fields except for the type, when the user presses the 'Reset' button in the TypeActivity.
 
-##### Enums
+#### Enums
 
 **Category**, **Retailer**, **Color**, **TypeAccessoires**, **TypeClothing**, **TypeGifts**, **TypeInterior**, **TypeShoes**, **TypeSport**, **TypeWellness**: Enums which are used to categorize screenshots, and which are used by the OCRHelper to check for relevant information contained in the text in the screenshot. The OCRHelper will iterate over the constants in these Enums (Such as the retailers contained in the Retailer Enum) in order to look for any matches. 
 
