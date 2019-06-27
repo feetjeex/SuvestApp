@@ -4,6 +4,8 @@
 
 **Aiming to increase the usability of screenshots in a more crowded online retail enviroment**
 
+Demonstration video: https://youtu.be/9NKXDjXnGEo
+
 #### Purpose of the App
 
 The main goal of this App is to increase the usability of screenshots of items taken by the shopping public. The App will process, organize and display screenshots of products, provided by the user.  
